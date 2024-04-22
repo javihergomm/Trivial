@@ -1,5 +1,6 @@
 package Trivial;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 
 public class Log {
 
-    public static void escribirEnLog(String texto){
+    public static void escribirEnLog(String texto) {
 
         LocalDate fecha = LocalDate.now();
         LocalTime Hora = LocalTime.now();
@@ -22,7 +23,7 @@ public class Log {
 
         texto ="[" + fecha.format(formatoFecha) + "]" + "[" + Hora.format(formatoHora) + "]" + " " + texto;
 
-        if (!logAntiguo(ultimaLinea())){
+        if (!logAntiguo(ultimaLinea()) || ultimaLinea().equals("vacio")){
 
 
             Path archivo = Paths.get("src/archivos/salida.log");
@@ -33,28 +34,47 @@ public class Log {
                 System.err.println("Error al escribir en el archivo: " + e.getMessage());
             }
         }else {
-            
+
+            File archivoActual = new File("src/archivos/salida.log");
+            File archivoAntiguo = new File("src/archivos/salida.log" + "." + fechaUltimoLog(ultimaLinea()));
+
+            try{
+                archivoActual.renameTo(archivoAntiguo);
+                Files.createFile(archivoActual.toPath());
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
-
     }
 
-    private static String ultimaLinea() {
+    public static String ultimaLinea() {
 
 
-        String ultimaLinea = null;
+        String ultimaLinea = "";
+        String estaLogVacio = null;
         try {
-
-            ArrayList<String> lineas = (ArrayList<String>) Files.readAllLines(Paths.get("src/archivos/salida.log"));
-
-            ultimaLinea = lineas.getLast();
-
-
+            estaLogVacio = Files.readAllLines(Paths.get("src/archivos/salida.log")).toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if (estaLogVacio.equals("[]")) {
+            ultimaLinea = "vacio";
+            return ultimaLinea;
+        } else {
 
-        return ultimaLinea;
+            try {
+
+                ArrayList<String> lineas = (ArrayList<String>) Files.readAllLines(Paths.get("src/archivos/salida.log"));
+
+                ultimaLinea = lineas.getLast();
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return ultimaLinea;
+        }
     }
 
     private static boolean logAntiguo(String fecha){
@@ -75,5 +95,20 @@ public class Log {
         }else {
             return false;
         }
+    }
+
+    private static String fechaUltimoLog(String fecha){
+        String dia;
+        String mes;
+        String año;
+        String todoJunto;
+
+        dia = fecha.substring(1, 3);
+        mes = fecha.substring(4, 6);
+        año = fecha.substring(7, 11);
+
+        todoJunto = año + mes + dia;
+
+        return todoJunto;
     }
 }

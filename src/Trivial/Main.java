@@ -19,8 +19,7 @@ public class Main {
 
 
 
-
-        //menu(teclado, jugadores);
+        menu(teclado, jugadores);
 
     }
 
@@ -79,6 +78,7 @@ public class Main {
             System.err.println("Error al leer el archivo: " + e.getMessage());
         }
 
+        Log.escribirEnLog("Se ha mostrado el Ranking");
     }
 
     public static void mostrarHistorial() {
@@ -104,6 +104,7 @@ public class Main {
                 nombre = teclado.next();
                 jugadores.add(new Persona(nombre));
                 jugadores.getLast().añadirJugador(jugadores.getLast());
+                Log.escribirEnLog("Se ha añadido un nuevo jugador llamado " + nombre);
 
             } else if (eleccion == 3) {
 
