@@ -4,19 +4,23 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
-
         ArrayList <Persona> jugadores = new ArrayList<>();
 
-        menu(teclado, jugadores);
 
+
+
+        //menu(teclado, jugadores);
 
     }
 
@@ -76,9 +80,11 @@ public class Main {
         }
 
     }
+
     public static void mostrarHistorial() {
 
     }
+
     public static void menuJugadores(Scanner teclado, ArrayList<Persona> jugadores){
         String nombre;
         int eleccion;
@@ -110,5 +116,8 @@ public class Main {
         }while (eleccion != 4);
 
     }
+
+
+
 
 }
