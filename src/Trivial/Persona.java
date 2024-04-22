@@ -11,8 +11,8 @@ public class Persona {
     int puntuacion;
     String nombre;
 
-    public Persona(int puntuacion, String nombre) {
-        this.puntuacion = puntuacion;
+    public Persona(String nombre) {
+        this.puntuacion = 0;
         this.nombre = nombre;
     }
 

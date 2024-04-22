@@ -62,33 +62,20 @@ public class Partida {
 
     }
 
+    public void jugarPartida(Partida p){
+
+    }
+
     public void actualizarRanking(String contenido) {
 
     }
 
-    public void mostrarRanking() {
-        Path archivo = Paths.get("src/archivos/Ranking.txt");
-        try {
-
-            List<String> lineas = Files.readAllLines(archivo);
-
-            for (String linea : lineas) {
-                System.out.println(linea);
-            }
-
-        } catch (IOException e) {
-            System.err.println("Error al leer el archivo: " + e.getMessage());
-        }
-
-    }
 
     public void actualizarHistorial() {
 
     }
 
-    public void mostrarHistorial() {
 
-    }
 
     //Hace la pregunta sobre matemáticas, Primero genera un número aleatorio entre 4 y 8 que será el número de operaciones,
     //despues añade un numero entre 2 y 12 y luego el símbolo de la operación, eso el número de veces que haya salido en el primer numero aleatorio
