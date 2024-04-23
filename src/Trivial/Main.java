@@ -16,17 +16,19 @@ public class Main {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
         ArrayList <Persona> jugadores = new ArrayList<>();
+        Partida p = new Partida(teclado);
 
+        p.preguntaIngles(teclado);
 
-
-        menu(teclado, jugadores);
+        //menu(teclado, jugadores);
 
     }
 
     public static void menu(Scanner teclado, ArrayList<Persona> jugadores){
         int eleccion;
-        String asda;
+
         System.out.println("Bienvenido a ¿Quien quiere ser aprobado?");
+
         do {
 
             System.out.println("¿Que quieres Hacer?");
@@ -82,6 +84,7 @@ public class Main {
     }
 
     public static void mostrarHistorial() {
+
 
     }
 

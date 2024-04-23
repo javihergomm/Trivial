@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -127,12 +128,116 @@ public class Partida {
 
 
     }
-    public void preguntaLetras(){
+
+    public void preguntaLetras(Scanner teclado){
+
+        try{
+
+            ArrayList<String> lineas = (ArrayList<String>) Files.readAllLines(Paths.get("src/archivos/diccionario.txt"));
+            Random aleatorio = new Random();
+            String palabra;
+            String respuesta;
+            int numeroDeLinea;
+
+            do {
+                numeroDeLinea = aleatorio.nextInt(lineas.size());
+                palabra = lineas.get(numeroDeLinea);
+            }while(palabra.length() > 3);
+
+            char[] letras = palabra.toCharArray();
+
+
+
+
+        }catch (IOException e){
+
+            System.err.println("La pregunta de letras no ha podido leer el archivo diccionario.txt");
+        }
 
     }
-    public void preguntaIngles(){
+
+
+    public void preguntaIngles(Scanner teclado){
+
+        try {
+            ArrayList<String> lineas = (ArrayList<String>) Files.readAllLines(Paths.get("src/archivos/ingles.txt"));
+            Random aleatorio = new Random();
+            int numeroDeLinea;
+            int dondeEstaLaRespuesta = aleatorio.nextInt(4) + 1;
+            String respuesta;
+
+            do{
+                numeroDeLinea = aleatorio.nextInt(lineas.size());
+            }while (numeroDeLinea % 5 != 0);
+
+            teclado.nextLine();
+            System.out.println(lineas.get(numeroDeLinea));
+            if (dondeEstaLaRespuesta == 1){
+
+                System.out.println("a)" + lineas.get(numeroDeLinea + 1));
+                System.out.println("b)" + lineas.get(numeroDeLinea + 2));
+                System.out.println("c)" + lineas.get(numeroDeLinea + 3));
+                System.out.println("d)" + lineas.get(numeroDeLinea + 4));
+
+                respuesta = teclado.nextLine();
+
+                if(respuesta.equalsIgnoreCase("a") || respuesta.equalsIgnoreCase("a)")){
+                    System.out.println("Enhorabuena!! La respuesta es correcta");
+                } else{
+                    System.out.println("Mala suerte, a la proxima será. La respuesta correcta era la A");
+                }
+
+            } else if (dondeEstaLaRespuesta == 2) {
+                System.out.println("a)" + lineas.get(numeroDeLinea + 2));
+                System.out.println("b)" + lineas.get(numeroDeLinea + 1));
+                System.out.println("c)" + lineas.get(numeroDeLinea + 3));
+                System.out.println("d)" + lineas.get(numeroDeLinea + 4));
+
+                respuesta = teclado.nextLine();
+
+                if(respuesta.equalsIgnoreCase("b") || respuesta.equalsIgnoreCase("b)")){
+                    System.out.println("Enhorabuena!! La respuesta es correcta");
+                } else{
+                    System.out.println("Mala suerte, a la proxima será. La respuesta correcta era la B");
+                }
+
+            } else if (dondeEstaLaRespuesta == 3) {
+                System.out.println("a)" + lineas.get(numeroDeLinea + 2));
+                System.out.println("b)" + lineas.get(numeroDeLinea + 3));
+                System.out.println("c)" + lineas.get(numeroDeLinea + 1));
+                System.out.println("d)" + lineas.get(numeroDeLinea + 4));
+
+                respuesta = teclado.nextLine();
+
+                if(respuesta.equalsIgnoreCase("c") || respuesta.equalsIgnoreCase("c)")){
+                    System.out.println("Enhorabuena!! La respuesta es correcta");
+                } else{
+                    System.out.println("Mala suerte, a la proxima será. La respuesta correcta era la C");
+                }
+
+            } else {
+                System.out.println("a)" + lineas.get(numeroDeLinea + 2));
+                System.out.println("b)" + lineas.get(numeroDeLinea + 3));
+                System.out.println("c)" + lineas.get(numeroDeLinea + 4));
+                System.out.println("d)" + lineas.get(numeroDeLinea + 1));
+
+                respuesta = teclado.nextLine();
+
+                if(respuesta.equalsIgnoreCase("d") || respuesta.equalsIgnoreCase("d)")){
+                    System.out.println("Enhorabuena!! La respuesta es correcta");
+                } else{
+                    System.out.println("Mala suerte, a la proxima será. La respuesta correcta era la D");
+                }
+
+            }
+
+
+        }catch(IOException e){
+            System.err.println("La pregunta de ingles Tiene un fallo al leer el archivo ingles.txt");
+        }
 
     }
+
 
 
     public int getNumRondas() {

@@ -21,19 +21,16 @@ public class Log {
         DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-        texto ="[" + fecha.format(formatoFecha) + "]" + "[" + Hora.format(formatoHora) + "]" + " " + texto;
+        texto ="[" + fecha.format(formatoFecha) + "]" + "[" + Hora.format(formatoHora) + "]" + " " + texto + '\n';
 
-        if (!logAntiguo(ultimaLinea()) || ultimaLinea().equals("vacio")){
+        if (ultimaLinea().equals("vacio")){
+           apuntarAccion(texto);
 
+        } else if (!logAntiguo(ultimaLinea())) {
 
-            Path archivo = Paths.get("src/archivos/salida.log");
+            apuntarAccion(texto);
 
-            try {
-                Files.write(archivo, texto.getBytes(), StandardOpenOption.APPEND);
-            } catch (IOException e) {
-                System.err.println("Error al escribir en el archivo: " + e.getMessage());
-            }
-        }else {
+        } else {
 
             File archivoActual = new File("src/archivos/salida.log");
             File archivoAntiguo = new File("src/archivos/salida.log" + "." + fechaUltimoLog(ultimaLinea()));
@@ -42,8 +39,11 @@ public class Log {
                 archivoActual.renameTo(archivoAntiguo);
                 Files.createFile(archivoActual.toPath());
             }catch (IOException e) {
-                e.printStackTrace();
+                System.err.println("Error al renombrar archivo salida.log o crear archivo salida.log");
             }
+
+                apuntarAccion(texto);
+
         }
     }
 
@@ -110,5 +110,17 @@ public class Log {
         todoJunto = año + mes + dia;
 
         return todoJunto;
+    }
+
+    private static void apuntarAccion(String texto){
+
+        Path archivo = Paths.get("src/archivos/salida.log");
+
+        try {
+            Files.write(archivo, texto.getBytes(), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            System.err.println("Error al escribir en el archivo: " + e.getMessage());
+        }
+
     }
 }
