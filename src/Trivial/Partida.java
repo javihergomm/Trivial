@@ -7,10 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Partida {
     int numRondas;
@@ -145,12 +142,31 @@ public class Partida {
             }while(palabra.length() > 3);
 
             char[] letras = palabra.toCharArray();
+            ArrayList<Integer> posicionesDeLetras = new ArrayList<>();
 
+            for (int i = 0; i < letras.length; i++){
+                posicionesDeLetras.add(i);
+            }
 
+            Collections.shuffle(posicionesDeLetras);
+            List<Integer> posicionesAleatorias = posicionesDeLetras.subList(0, (letras.length / 3));
 
+            for (int i = 0; i < posicionesAleatorias.size(); i++){
+                letras[posicionesAleatorias.get(i)] = '*';
+            }
 
+            String palabraCensurada = new String(letras);
+
+            System.out.println("¿Cual es esta palabra?");
+            System.out.println(palabraCensurada);
+            respuesta = teclado.nextLine();
+
+            if (respuesta.equalsIgnoreCase(palabra)){
+                System.out.println("Enhorabuena!! Respuesta correcta");
+            }else {
+                System.out.println("Mala suerte. La respuesta correcta era: " + palabra);
+            }
         }catch (IOException e){
-
             System.err.println("La pregunta de letras no ha podido leer el archivo diccionario.txt");
         }
 
