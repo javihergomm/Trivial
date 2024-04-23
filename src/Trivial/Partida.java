@@ -125,9 +125,8 @@ public class Partida {
 
 
     }
-
     public void preguntaLetras(Scanner teclado){
-
+        teclado.nextLine();
         try{
 
             ArrayList<String> lineas = (ArrayList<String>) Files.readAllLines(Paths.get("src/archivos/diccionario.txt"));
@@ -139,7 +138,7 @@ public class Partida {
             do {
                 numeroDeLinea = aleatorio.nextInt(lineas.size());
                 palabra = lineas.get(numeroDeLinea);
-            }while(palabra.length() > 3);
+            }while(palabra.length() <= 3);
 
             char[] letras = palabra.toCharArray();
             ArrayList<Integer> posicionesDeLetras = new ArrayList<>();
@@ -151,8 +150,8 @@ public class Partida {
             Collections.shuffle(posicionesDeLetras);
             List<Integer> posicionesAleatorias = posicionesDeLetras.subList(0, (letras.length / 3));
 
-            for (int i = 0; i < posicionesAleatorias.size(); i++){
-                letras[posicionesAleatorias.get(i)] = '*';
+            for (Integer posicionesAleatoria : posicionesAleatorias) {
+                letras[posicionesAleatoria] = '*';
             }
 
             String palabraCensurada = new String(letras);
@@ -171,8 +170,6 @@ public class Partida {
         }
 
     }
-
-
     public void preguntaIngles(Scanner teclado){
 
         try {
