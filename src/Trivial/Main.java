@@ -19,29 +19,8 @@ public class Main {
         ArrayList <Persona> jugadores = new ArrayList<>();
         Partida p = new Partida(teclado);
 
-        Random random = new Random();
 
-        int numero;
-        while (true){
-            numero= random.nextInt(0,3);
-
-            if (numero == 0){
-                System.out.println("Ha tocado una pregunta de Letras");
-                p.preguntaLetras(teclado);
-            } else if (numero == 1) {
-                System.out.println("Ha tocado una pregunta de Ingles");
-
-                p.preguntaIngles(teclado);
-            } else{
-                System.out.println("Ha tocado una pregunta de matemáticas");
-
-                p.preguntaMates(teclado);
-            }
-
-        }
-
-
-        //menu(teclado, jugadores);
+        menu(teclado, jugadores);
 
     }
 

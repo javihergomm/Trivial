@@ -34,8 +34,21 @@ public class Persona {
     public void eliminarJugador(Persona jugador){
         Path archivo = Paths.get("src/archivos/Ranking.txt");
         ArrayList<String> lineasRanking = new ArrayList<>();
+        String lineaABorrar = "";
+        boolean u = false;
+        int i=0;
         try {
             lineasRanking = (ArrayList<String>) Files.readAllLines(archivo);
+            do{
+                try {
+                    lineaABorrar = lineasRanking.get(i);
+                    i++;
+                }catch (IndexOutOfBoundsException e){
+                    System.err.println("Ese jugador no está registrado en el sistema");
+                    u = true;
+                }
+
+            }while (lineaABorrar.equals(jugador.nombre) || u);
 
         }catch(IOException e){
             System.err.println("Ha habido un error al intetntar leer el ranking");

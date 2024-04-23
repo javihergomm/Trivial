@@ -58,9 +58,11 @@ public class Partida {
     public void meterJugadoresEnPartida(int numJugadores, int numPersonas){
 
 
+
     }
 
     public void jugarPartida(Partida p){
+
 
     }
 
