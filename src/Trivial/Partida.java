@@ -4,9 +4,7 @@ import net.objecthunter.exp4j.ExpressionBuilder;
 import net.objecthunter.exp4j.Expression;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 public class Partida {
@@ -47,7 +45,7 @@ public class Partida {
             System.out.println("20 (partida larga)");
             numRondas = teclado.nextInt();
         }
-
+        teclado.nextLine();
 
         this.numRondas = numRondas;
         this.numJugadores = Math.max(numJugadores, 0);
@@ -66,18 +64,14 @@ public class Partida {
 
     }
 
-    public void actualizarRanking(String contenido) {
-
-    }
-
-
-    public void actualizarHistorial() {
-
-    }
 
 
 
-    //Hace la pregunta sobre matemáticas, Primero genera un número aleatorio entre 4 y 8 que será el número de operaciones,
+
+
+
+
+    //Hace la pregunta sobre matemáticas. Primero genera un número aleatorio entre 4 y 8 que será el número de operaciones,
     //despues añade un numero entre 2 y 12 y luego el símbolo de la operación, eso el número de veces que haya salido en el primer numero aleatorio
     //por último con la librería exp4j usando las clases Expression y ExpressionBuilder
     //paso el string a un double, pido una respuesta y la comparo con el resultado
@@ -127,8 +121,12 @@ public class Partida {
 
 
     }
+
+    //Hace la pregunta de letras. Primero lee entero el diccionario, y lo almacena en un arraylist, despues genera
+    //una linea (palabra del diccionario) aleatoria y la almacena en un String. De esa palabra se sacan todos los
+    //caracteres a un array de chars y se sacan tantos numeros aleatorios del 0 al numero de lertas de la palabra
+    // como letras tenga la palabra/3 en el array de chars se cambian esos caracteres por '*' y se muestra.
     public void preguntaLetras(Scanner teclado){
-        teclado.nextLine();
         try{
 
             ArrayList<String> lineas = (ArrayList<String>) Files.readAllLines(Paths.get("src/archivos/diccionario.txt"));
@@ -172,6 +170,10 @@ public class Partida {
         }
 
     }
+
+    //Hace la pregunta de ingles. Primero almacena todas las lineas del archivo ingles.txt en un arraylist, después
+    //genera un numero aleatorio del 0 al numero de lineas del archivo que sea multiplo de 5 (porque es donde estan
+    // las preguntas) despues con un numero aleatorio del 1 al 4 se coloca la respuesta correcta en la posicion a, b, c o d
     public void preguntaIngles(Scanner teclado){
 
         try {
@@ -183,9 +185,9 @@ public class Partida {
 
             do{
                 numeroDeLinea = aleatorio.nextInt(lineas.size());
-            }while (numeroDeLinea % 5 != 0);
+            }while (numeroDeLinea % 5 != 0 || numeroDeLinea == 0);
 
-            teclado.nextLine();
+
             System.out.println(lineas.get(numeroDeLinea));
             if (dondeEstaLaRespuesta == 1){
 

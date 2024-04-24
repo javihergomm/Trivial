@@ -6,5 +6,4 @@ public class CPU {
     String nombre;
 
 
-
 }

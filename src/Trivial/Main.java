@@ -1,16 +1,6 @@
 package Trivial;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -18,7 +8,6 @@ public class Main {
         Scanner teclado = new Scanner(System.in);
         ArrayList <Persona> jugadores = new ArrayList<>();
         Partida p = new Partida(teclado);
-
 
         menu(teclado, jugadores);
 
@@ -44,13 +33,13 @@ public class Main {
                 p.jugarPartida(p);
 
             } else if (eleccion == 2) {
-                mostrarRanking();
+                Ranking.mostrarRanking();
                 System.out.print("Presiona enter para continuar...");
                 teclado.nextLine();
                 teclado.nextLine();
 
             } else if (eleccion == 3) {
-                mostrarHistorial();
+                Historial.mostrarHistorial();
 
             } else if (eleccion == 4) {
 
@@ -66,27 +55,7 @@ public class Main {
 
     }
 
-    public static void mostrarRanking() {
-        Path archivo = Paths.get("src/archivos/Ranking.txt");
-        try {
 
-            List<String> lineas = Files.readAllLines(archivo);
-
-            for (String linea : lineas) {
-                System.out.println(linea);
-            }
-
-        } catch (IOException e) {
-            System.err.println("Error al leer el archivo: " + e.getMessage());
-        }
-
-        Log.escribirEnLog("Se ha mostrado el Ranking");
-    }
-
-    public static void mostrarHistorial() {
-
-
-    }
 
     public static void menuJugadores(Scanner teclado, ArrayList<Persona> jugadores){
         String nombre;
@@ -100,7 +69,7 @@ public class Main {
             eleccion = teclado.nextInt();
 
             if (eleccion == 1){
-
+                Persona.mostrarJugadores();
 
             } else if (eleccion == 2) {
                 System.out.println("¿Cuál es el nombre del jugador que quieres añadir? (Solo el nombre y sin espacios)");
@@ -110,8 +79,10 @@ public class Main {
                 Log.escribirEnLog("Se ha añadido un nuevo jugador llamado " + nombre);
 
             } else if (eleccion == 3) {
-
-
+                System.out.println("¿Cuál es el nombre del jugador que quieres Eliminar? (Solo el nombre y sin espacios)");
+                nombre= teclado.next();
+                Persona.eliminarJugador(nombre);
+                Log.escribirEnLog("Se ha eliminado el jugador " + nombre);
             } else if (eleccion != 4){
 
                 System.out.println("Error! No has escogido un número válido");

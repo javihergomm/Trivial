@@ -1,12 +1,12 @@
 package Trivial;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Persona {
 
@@ -31,30 +31,51 @@ public class Persona {
 
     }
 
-    public void eliminarJugador(Persona jugador){
+    public static void eliminarJugador(String jugador){
         Path archivo = Paths.get("src/archivos/Ranking.txt");
-        ArrayList<String> lineasRanking = new ArrayList<>();
-        String lineaABorrar = "";
-        boolean u = false;
-        int i=0;
+        Constantes.comprobarArchivo(archivo);
+        ArrayList<String> lineasRanking = null;
         try {
             lineasRanking = (ArrayList<String>) Files.readAllLines(archivo);
-            do{
-                try {
-                    lineaABorrar = lineasRanking.get(i);
-                    i++;
-                }catch (IndexOutOfBoundsException e){
-                    System.err.println("Ese jugador no está registrado en el sistema");
-                    u = true;
-                }
+            for (int i=0; i < lineasRanking.size(); i++){
 
-            }while (lineaABorrar.equals(jugador.nombre) || u);
+                lineasRanking.set(i, lineasRanking.get(i).substring(0, ' '));
+
+            }
+            for (int i=0; i < lineasRanking.size(); i++){
+
+                if (jugador.equalsIgnoreCase(lineasRanking.get(i))){
+                    lineasRanking.remove(i);
+                }
+            }
 
         }catch(IOException e){
             System.err.println("Ha habido un error al intetntar leer el ranking");
         }
+        try{
+            Files.write(archivo, lineasRanking);
+        }catch (IOException e){
+            System.err.println("Ha habido un error al escribir en el archivo Ranking.txt");
+        }
 
     }
 
+    public static void mostrarJugadores() {
+        Path archivo = Paths.get("src/archivos/Ranking.txt");
+        Constantes.comprobarArchivo(archivo);
+        try {
 
+            List<String> lineas = Files.readAllLines(archivo);
+            for (int i=0; i< lineas.size(); i++) {
+                if (lineas.get(i).length() > 2){
+                    lineas.set(i, lineas.get(i).substring(0, ' '));
+                }
+            }
+
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + e.getMessage());
+        }
+
+        Log.escribirEnLog("Se ha mostrado el Ranking");
+    }
 }

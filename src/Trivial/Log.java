@@ -23,6 +23,10 @@ public class Log {
 
         texto ="[" + fecha.format(formatoFecha) + "]" + "[" + Hora.format(formatoHora) + "]" + " " + texto + '\n';
 
+        Path archivo = Path.of("src/archivos/salida.log");
+
+        Constantes.comprobarArchivo(archivo);
+
         if (ultimaLinea().equals("vacio")){
            apuntarAccion(texto);
 
@@ -41,22 +45,21 @@ public class Log {
             }catch (IOException e) {
                 System.err.println("Error al renombrar archivo salida.log o crear archivo salida.log");
             }
-
                 apuntarAccion(texto);
-
         }
     }
 
     public static String ultimaLinea() {
 
 
-        String ultimaLinea = "";
+        String ultimaLinea = null;
         String estaLogVacio = null;
         try {
             estaLogVacio = Files.readAllLines(Paths.get("src/archivos/salida.log")).toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         if (estaLogVacio.equals("[]")) {
             ultimaLinea = "vacio";
             return ultimaLinea;
