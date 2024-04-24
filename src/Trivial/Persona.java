@@ -64,12 +64,12 @@ public class Persona {
         Path archivo = Paths.get("src/archivos/Ranking.txt");
         Constantes.comprobarArchivo(archivo);
         try {
-
+            String hola;
             List<String> lineas = Files.readAllLines(archivo);
-            for (int i=0; i< lineas.size(); i++) {
-                if (lineas.get(i).length() > 2){
-                    lineas.set(i, lineas.get(i).substring(0, ' '));
-                }
+
+            for (int i=0; i<lineas.size(); i++) {
+                hola = lineas.get(i).substring(0, ' ');
+                System.out.println();
             }
 
         } catch (IOException e) {

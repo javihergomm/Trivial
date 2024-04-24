@@ -1,5 +1,6 @@
 package Trivial;
 
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,9 +8,20 @@ public class Main {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
         ArrayList <Persona> jugadores = new ArrayList<>();
-        Partida p = new Partida(teclado);
 
-        menu(teclado, jugadores);
+        ArrayList<String> hoho = new ArrayList<>();
+        hoho.add("Javier 0");
+        hoho.add("Pedro 0");
+        hoho.add("Luis 0");
+
+        for (String s : hoho) {
+            System.out.println(s.substring(0));
+        }
+
+
+        //Partida p = new Partida(teclado);
+
+        //menu(teclado, jugadores);
 
     }
 
