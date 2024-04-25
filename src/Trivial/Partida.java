@@ -2,9 +2,6 @@ package Trivial;
 
 import net.objecthunter.exp4j.ExpressionBuilder;
 import net.objecthunter.exp4j.Expression;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 
 public class Partida {
@@ -65,12 +62,6 @@ public class Partida {
     }
 
 
-
-
-
-
-
-
     //Hace la pregunta sobre matemáticas. Primero genera un número aleatorio entre 4 y 8 que será el número de operaciones,
     //despues añade un numero entre 2 y 12 y luego el símbolo de la operación, eso el número de veces que haya salido en el primer numero aleatorio
     //por último con la librería exp4j usando las clases Expression y ExpressionBuilder
@@ -127,46 +118,41 @@ public class Partida {
     //caracteres a un array de chars y se sacan tantos numeros aleatorios del 0 al numero de lertas de la palabra
     // como letras tenga la palabra/3 en el array de chars se cambian esos caracteres por '*' y se muestra.
     public void preguntaLetras(Scanner teclado){
-        try{
 
-            ArrayList<String> lineas = (ArrayList<String>) Files.readAllLines(Paths.get("src/archivos/diccionario.txt"));
-            Random aleatorio = new Random();
-            String palabra;
-            String respuesta;
-            int numeroDeLinea;
+        Random aleatorio = new Random();
+        String palabra;
+        String respuesta;
+        int numeroDeLinea;
 
-            do {
-                numeroDeLinea = aleatorio.nextInt(lineas.size());
-                palabra = lineas.get(numeroDeLinea);
-            }while(palabra.length() <= 3);
+        do {
+            numeroDeLinea = aleatorio.nextInt(Constantes.lineasDiccionario.size());
+            palabra = Constantes.lineasDiccionario.get(numeroDeLinea);
+        }while(palabra.length() <= 3);
 
-            char[] letras = palabra.toCharArray();
-            ArrayList<Integer> posicionesDeLetras = new ArrayList<>();
+        char[] letras = palabra.toCharArray();
+        ArrayList<Integer> posicionesDeLetras = new ArrayList<>();
 
-            for (int i = 0; i < letras.length; i++){
-                posicionesDeLetras.add(i);
-            }
+        for (int i = 0; i < letras.length; i++){
+            posicionesDeLetras.add(i);
+        }
 
-            Collections.shuffle(posicionesDeLetras);
-            List<Integer> posicionesAleatorias = posicionesDeLetras.subList(0, (letras.length / 3));
+        Collections.shuffle(posicionesDeLetras);
+        List<Integer> posicionesAleatorias = posicionesDeLetras.subList(0, (letras.length / 3));
 
-            for (Integer posicionesAleatoria : posicionesAleatorias) {
-                letras[posicionesAleatoria] = '*';
-            }
+        for (Integer posicionesAleatoria : posicionesAleatorias) {
+            letras[posicionesAleatoria] = '*';
+        }
 
-            String palabraCensurada = new String(letras);
+        String palabraCensurada = new String(letras);
 
-            System.out.println("¿Cual es esta palabra?");
-            System.out.println(palabraCensurada);
-            respuesta = teclado.nextLine();
+        System.out.println("¿Cual es esta palabra?");
+        System.out.println(palabraCensurada);
+        respuesta = teclado.nextLine();
 
-            if (respuesta.equalsIgnoreCase(palabra)){
-                System.out.println("Enhorabuena!! Respuesta correcta");
-            }else {
-                System.out.println("Mala suerte. La respuesta correcta era: " + palabra);
-            }
-        }catch (IOException e){
-            System.err.println("La pregunta de letras no ha podido leer el archivo diccionario.txt");
+        if (respuesta.equalsIgnoreCase(palabra)){
+            System.out.println("Enhorabuena!! Respuesta correcta");
+        }else {
+            System.out.println("Mala suerte. La respuesta correcta era: " + palabra);
         }
 
     }
@@ -176,82 +162,76 @@ public class Partida {
     // las preguntas) despues con un numero aleatorio del 1 al 4 se coloca la respuesta correcta en la posicion a, b, c o d
     public void preguntaIngles(Scanner teclado){
 
-        try {
-            ArrayList<String> lineas = (ArrayList<String>) Files.readAllLines(Paths.get("src/archivos/ingles.txt"));
-            Random aleatorio = new Random();
-            int numeroDeLinea;
-            int dondeEstaLaRespuesta = aleatorio.nextInt(4) + 1;
-            String respuesta;
+        Random aleatorio = new Random();
+        int numeroDeLinea;
+        int dondeEstaLaRespuesta = aleatorio.nextInt(4) + 1;
+        String respuesta;
 
-            do{
-                numeroDeLinea = aleatorio.nextInt(lineas.size());
-            }while (numeroDeLinea % 5 != 0 || numeroDeLinea == 0);
+        do{
+            numeroDeLinea = aleatorio.nextInt(Constantes.lineasIngles.size());
+        }while (numeroDeLinea % 5 != 0 || numeroDeLinea == 0);
 
 
-            System.out.println(lineas.get(numeroDeLinea));
-            if (dondeEstaLaRespuesta == 1){
+        System.out.println(Constantes.lineasIngles.get(numeroDeLinea));
+        if (dondeEstaLaRespuesta == 1){
 
-                System.out.println("a)" + lineas.get(numeroDeLinea + 1));
-                System.out.println("b)" + lineas.get(numeroDeLinea + 2));
-                System.out.println("c)" + lineas.get(numeroDeLinea + 3));
-                System.out.println("d)" + lineas.get(numeroDeLinea + 4));
+            System.out.println("a)" + Constantes.lineasIngles.get(numeroDeLinea + 1));
+            System.out.println("b)" + Constantes.lineasIngles.get(numeroDeLinea + 2));
+            System.out.println("c)" + Constantes.lineasIngles.get(numeroDeLinea + 3));
+            System.out.println("d)" + Constantes.lineasIngles.get(numeroDeLinea + 4));
 
-                respuesta = teclado.nextLine();
+            respuesta = teclado.nextLine();
 
-                if(respuesta.equalsIgnoreCase("a") || respuesta.equalsIgnoreCase("a)")){
-                    System.out.println("Enhorabuena!! La respuesta es correcta");
-                } else{
-                    System.out.println("Mala suerte, a la proxima será. La respuesta correcta era la A");
-                }
-
-            } else if (dondeEstaLaRespuesta == 2) {
-                System.out.println("a)" + lineas.get(numeroDeLinea + 2));
-                System.out.println("b)" + lineas.get(numeroDeLinea + 1));
-                System.out.println("c)" + lineas.get(numeroDeLinea + 3));
-                System.out.println("d)" + lineas.get(numeroDeLinea + 4));
-
-                respuesta = teclado.nextLine();
-
-                if(respuesta.equalsIgnoreCase("b") || respuesta.equalsIgnoreCase("b)")){
-                    System.out.println("Enhorabuena!! La respuesta es correcta");
-                } else{
-                    System.out.println("Mala suerte, a la proxima será. La respuesta correcta era la B");
-                }
-
-            } else if (dondeEstaLaRespuesta == 3) {
-                System.out.println("a)" + lineas.get(numeroDeLinea + 2));
-                System.out.println("b)" + lineas.get(numeroDeLinea + 3));
-                System.out.println("c)" + lineas.get(numeroDeLinea + 1));
-                System.out.println("d)" + lineas.get(numeroDeLinea + 4));
-
-                respuesta = teclado.nextLine();
-
-                if(respuesta.equalsIgnoreCase("c") || respuesta.equalsIgnoreCase("c)")){
-                    System.out.println("Enhorabuena!! La respuesta es correcta");
-                } else{
-                    System.out.println("Mala suerte, a la proxima será. La respuesta correcta era la C");
-                }
-
-            } else {
-                System.out.println("a)" + lineas.get(numeroDeLinea + 2));
-                System.out.println("b)" + lineas.get(numeroDeLinea + 3));
-                System.out.println("c)" + lineas.get(numeroDeLinea + 4));
-                System.out.println("d)" + lineas.get(numeroDeLinea + 1));
-
-                respuesta = teclado.nextLine();
-
-                if(respuesta.equalsIgnoreCase("d") || respuesta.equalsIgnoreCase("d)")){
-                    System.out.println("Enhorabuena!! La respuesta es correcta");
-                } else{
-                    System.out.println("Mala suerte, a la proxima será. La respuesta correcta era la D");
-                }
-
+            if(respuesta.equalsIgnoreCase("a") || respuesta.equalsIgnoreCase("a)")){
+                System.out.println("Enhorabuena!! La respuesta es correcta");
+            } else{
+                System.out.println("Mala suerte, a la proxima será. La respuesta correcta era la A");
             }
 
+        } else if (dondeEstaLaRespuesta == 2) {
+            System.out.println("a)" + Constantes.lineasIngles.get(numeroDeLinea + 2));
+            System.out.println("b)" + Constantes.lineasIngles.get(numeroDeLinea + 1));
+            System.out.println("c)" + Constantes.lineasIngles.get(numeroDeLinea + 3));
+            System.out.println("d)" + Constantes.lineasIngles.get(numeroDeLinea + 4));
 
-        }catch(IOException e){
-            System.err.println("La pregunta de ingles Tiene un fallo al leer el archivo ingles.txt");
+            respuesta = teclado.nextLine();
+
+            if(respuesta.equalsIgnoreCase("b") || respuesta.equalsIgnoreCase("b)")){
+                System.out.println("Enhorabuena!! La respuesta es correcta");
+            } else{
+                System.out.println("Mala suerte, a la proxima será. La respuesta correcta era la B");
+            }
+
+        } else if (dondeEstaLaRespuesta == 3) {
+            System.out.println("a)" + Constantes.lineasIngles.get(numeroDeLinea + 2));
+            System.out.println("b)" + Constantes.lineasIngles.get(numeroDeLinea + 3));
+            System.out.println("c)" + Constantes.lineasIngles.get(numeroDeLinea + 1));
+            System.out.println("d)" + Constantes.lineasIngles.get(numeroDeLinea + 4));
+
+            respuesta = teclado.nextLine();
+
+            if(respuesta.equalsIgnoreCase("c") || respuesta.equalsIgnoreCase("c)")){
+                System.out.println("Enhorabuena!! La respuesta es correcta");
+            } else{
+                System.out.println("Mala suerte, a la proxima será. La respuesta correcta era la C");
+            }
+
+        } else {
+            System.out.println("a)" + Constantes.lineasIngles.get(numeroDeLinea + 2));
+            System.out.println("b)" + Constantes.lineasIngles.get(numeroDeLinea + 3));
+            System.out.println("c)" + Constantes.lineasIngles.get(numeroDeLinea + 4));
+            System.out.println("d)" + Constantes.lineasIngles.get(numeroDeLinea + 1));
+
+            respuesta = teclado.nextLine();
+
+            if(respuesta.equalsIgnoreCase("d") || respuesta.equalsIgnoreCase("d)")){
+                System.out.println("Enhorabuena!! La respuesta es correcta");
+            } else{
+                System.out.println("Mala suerte, a la proxima será. La respuesta correcta era la D");
+            }
+
         }
+
 
     }
 

@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Persona {
@@ -13,13 +14,12 @@ public class Persona {
     int puntuacion;
     String nombre;
 
-    public Persona(String nombre) {
-        this.puntuacion = 0;
+    public Persona(String nombre, int puntuacion) {
+        this.puntuacion = puntuacion;
         this.nombre = nombre;
     }
 
     public void añadirJugador(Persona jugador){
-
         jugador.nombre = jugador.nombre + " " + jugador.puntuacion + '\n';
         Path archivo = Paths.get("src/archivos/Ranking.txt");
 
@@ -32,50 +32,42 @@ public class Persona {
     }
 
     public static void eliminarJugador(String jugador){
-        Path archivo = Paths.get("src/archivos/Ranking.txt");
-        Constantes.comprobarArchivo(archivo);
-        ArrayList<String> lineasRanking = null;
-        try {
-            lineasRanking = (ArrayList<String>) Files.readAllLines(archivo);
-            for (int i=0; i < lineasRanking.size(); i++){
+        Constantes.comprobarArchivo(Constantes.archivoRanking);
+        ArrayList<String> lineasRanking = Constantes.lineasRanking;
+        boolean encontrado = false;
 
-                lineasRanking.set(i, lineasRanking.get(i).substring(0, ' '));
+        for (int i=0; i < lineasRanking.size(); i++){
 
+            if (jugador.equalsIgnoreCase(lineasRanking.get(i).split(" ")[0])){
+                lineasRanking.remove(i);
+                encontrado = true;
             }
-            for (int i=0; i < lineasRanking.size(); i++){
-
-                if (jugador.equalsIgnoreCase(lineasRanking.get(i))){
-                    lineasRanking.remove(i);
-                }
-            }
-
-        }catch(IOException e){
-            System.err.println("Ha habido un error al intetntar leer el ranking");
-        }
-        try{
-            Files.write(archivo, lineasRanking);
-        }catch (IOException e){
-            System.err.println("Ha habido un error al escribir en el archivo Ranking.txt");
         }
 
+        if (encontrado) {
+            try {
+                Files.write(Constantes.archivoRanking, lineasRanking);
+            } catch (IOException e) {
+                System.err.println("Ha habido un error al escribir en el archivo Ranking.txt");
+            }
+        }else{
+            System.err.println("Ese jugador no existe");
+        }
     }
 
-    public static void mostrarJugadores() {
-        Path archivo = Paths.get("src/archivos/Ranking.txt");
-        Constantes.comprobarArchivo(archivo);
-        try {
-            String hola;
-            List<String> lineas = Files.readAllLines(archivo);
+    public int getPuntuacion() {
+        return puntuacion;
+    }
 
-            for (int i=0; i<lineas.size(); i++) {
-                hola = lineas.get(i).substring(0, ' ');
-                System.out.println();
-            }
+    public void setPuntuacion(int puntuacion) {
+        this.puntuacion = puntuacion;
+    }
 
-        } catch (IOException e) {
-            System.err.println("Error al leer el archivo: " + e.getMessage());
-        }
+    public String getNombre() {
+        return nombre;
+    }
 
-        Log.escribirEnLog("Se ha mostrado el Ranking");
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

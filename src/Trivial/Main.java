@@ -7,21 +7,9 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
-        ArrayList <Persona> jugadores = new ArrayList<>();
+        ArrayList <Persona> jugadores = Constantes.TodosLosJugadores();
 
-        ArrayList<String> hoho = new ArrayList<>();
-        hoho.add("Javier 0");
-        hoho.add("Pedro 0");
-        hoho.add("Luis 0");
-
-        for (String s : hoho) {
-            System.out.println(s.substring(0));
-        }
-
-
-        //Partida p = new Partida(teclado);
-
-        //menu(teclado, jugadores);
+        menu(teclado, jugadores);
 
     }
 
@@ -45,13 +33,16 @@ public class Main {
                 p.jugarPartida(p);
 
             } else if (eleccion == 2) {
-                Ranking.mostrarRanking();
+                for (Persona jugadore : jugadores) {
+                    System.out.println(jugadore.nombre + " " +jugadore.puntuacion);
+                }
+                Log.escribirEnLog("Se ha mostrado el Ranking");
                 System.out.print("Presiona enter para continuar...");
                 teclado.nextLine();
                 teclado.nextLine();
 
             } else if (eleccion == 3) {
-                Historial.mostrarHistorial();
+
 
             } else if (eleccion == 4) {
 
@@ -81,12 +72,17 @@ public class Main {
             eleccion = teclado.nextInt();
 
             if (eleccion == 1){
-                Persona.mostrarJugadores();
-
+                for (Persona jugadore : jugadores) {
+                    System.out.println(jugadore.nombre);
+                }
+                Log.escribirEnLog("Se han mostrado los jugadores");
+                System.out.print("Presiona enter para continuar...");
+                teclado.nextLine();
+                teclado.nextLine();
             } else if (eleccion == 2) {
                 System.out.println("¿Cuál es el nombre del jugador que quieres añadir? (Solo el nombre y sin espacios)");
                 nombre = teclado.next();
-                jugadores.add(new Persona(nombre));
+                jugadores.add(new Persona(nombre, 0));
                 jugadores.getLast().añadirJugador(jugadores.getLast());
                 Log.escribirEnLog("Se ha añadido un nuevo jugador llamado " + nombre);
 
