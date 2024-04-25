@@ -9,7 +9,12 @@ public class Main {
         Scanner teclado = new Scanner(System.in);
         ArrayList <Persona> jugadores = Constantes.TodosLosJugadores();
 
-        menu(teclado, jugadores);
+        for(int i = 0; i < Partida.crearJugadores(4, 2, teclado).size(); i++){
+            System.out.println(Partida.crearJugadores(4, 2, teclado).get(i));
+
+        }
+
+        //menu(teclado, jugadores);
 
     }
 

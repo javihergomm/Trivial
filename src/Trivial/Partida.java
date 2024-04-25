@@ -50,10 +50,35 @@ public class Partida {
 
     }
 
-    public void meterJugadoresEnPartida(int numJugadores, int numPersonas){
+    public static ArrayList<String> crearJugadores(int numJugadores, int numPersonas, Scanner teclado){
+
+        ArrayList<String> jugadoresEnPartida = new ArrayList<>();
+        String nombre;
+        boolean correcto;
+
+        for (int i=0; i < numPersonas; i++){
+            correcto = false;
+            do {
+                System.out.println("¿Como se llama el jugador " + (i+1) + "?");
+                nombre = teclado.nextLine();
+                for (int j = 0; j < Constantes.lineasRanking.size(); j++) {
+                    if (nombre.equalsIgnoreCase(Constantes.lineasRanking.get(j).split(" ")[0])) {
+                        jugadoresEnPartida.add(nombre);
+                        correcto = true;
+                    }
+                }
+                if (!correcto) {
+                    System.err.println("Ese no es un jugador válido");
+                    System.err.println("Por favor introduce un jugador añadido al sistema");
+                }
+            }while (!correcto);
+        }
+        for (int i = 0; i < (numJugadores-numPersonas); i++){
+            jugadoresEnPartida.add("CPU" + i);
+        }
 
 
-
+        return jugadoresEnPartida;
     }
 
     public void jugarPartida(Partida p){
