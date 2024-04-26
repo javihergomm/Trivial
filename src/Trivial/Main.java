@@ -2,23 +2,16 @@ package Trivial;
 
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner teclado = new Scanner(System.in);
         ArrayList <Persona> jugadores = Constantes.TodosLosJugadores();
 
-        for(int i = 0; i < Partida.crearJugadores(4, 2, teclado).size(); i++){
-            System.out.println(Partida.crearJugadores(4, 2, teclado).get(i));
-
-        }
-
-        //menu(teclado, jugadores);
+        menu(jugadores);
 
     }
 
-    public static void menu(Scanner teclado, ArrayList<Persona> jugadores){
+    public static void menu (ArrayList<Persona> jugadores){
         int eleccion;
 
         System.out.println("Bienvenido a ¿Quien quiere ser aprobado?");
@@ -31,11 +24,12 @@ public class Main {
             System.out.println("3. Historial");
             System.out.println("4. Jugadores");
             System.out.println("5. Salir");
-            eleccion = teclado.nextInt();
+            eleccion = Constantes.teclado.nextInt();
 
             if (eleccion == 1){
-                Partida p = new Partida(teclado);
-                p.jugarPartida(p);
+                Partida p = new Partida();
+                ArrayList<String> jugadoresQueVanAJugar = Partida.crearJugadores(p.numJugadores, p.numPersonas);
+                p.jugarPartida(p, jugadoresQueVanAJugar);
 
             } else if (eleccion == 2) {
                 for (Persona jugadore : jugadores) {
@@ -43,15 +37,15 @@ public class Main {
                 }
                 Log.escribirEnLog("Se ha mostrado el Ranking");
                 System.out.print("Presiona enter para continuar...");
-                teclado.nextLine();
-                teclado.nextLine();
+                Constantes.teclado.nextLine();
+                Constantes.teclado.nextLine();
 
             } else if (eleccion == 3) {
 
 
             } else if (eleccion == 4) {
 
-                menuJugadores(teclado, jugadores);
+                menuJugadores(jugadores);
             } else if (eleccion != 5){
 
                 System.out.println("Error! No has escogido un número válido");
@@ -65,7 +59,7 @@ public class Main {
 
 
 
-    public static void menuJugadores(Scanner teclado, ArrayList<Persona> jugadores){
+    public static void menuJugadores(ArrayList<Persona> jugadores){
         String nombre;
         int eleccion;
         do {
@@ -74,7 +68,7 @@ public class Main {
             System.out.println("2. Añadir Jugador");
             System.out.println("3. Eliminar Jugador");
             System.out.println("4. Volver al menú principal");
-            eleccion = teclado.nextInt();
+            eleccion = Constantes.teclado.nextInt();
 
             if (eleccion == 1){
                 for (Persona jugadore : jugadores) {
@@ -82,18 +76,18 @@ public class Main {
                 }
                 Log.escribirEnLog("Se han mostrado los jugadores");
                 System.out.print("Presiona enter para continuar...");
-                teclado.nextLine();
-                teclado.nextLine();
+                Constantes.teclado.nextLine();
+                Constantes.teclado.nextLine();
             } else if (eleccion == 2) {
                 System.out.println("¿Cuál es el nombre del jugador que quieres añadir? (Solo el nombre y sin espacios)");
-                nombre = teclado.next();
-                jugadores.add(new Persona(nombre, 0));
+                nombre = Constantes.teclado.next();
+                jugadores.add(new Persona(nombre));
                 jugadores.getLast().añadirJugador(jugadores.getLast());
                 Log.escribirEnLog("Se ha añadido un nuevo jugador llamado " + nombre);
 
             } else if (eleccion == 3) {
                 System.out.println("¿Cuál es el nombre del jugador que quieres Eliminar? (Solo el nombre y sin espacios)");
-                nombre= teclado.next();
+                nombre= Constantes.teclado.next();
                 Persona.eliminarJugador(nombre);
                 Log.escribirEnLog("Se ha eliminado el jugador " + nombre);
             } else if (eleccion != 4){

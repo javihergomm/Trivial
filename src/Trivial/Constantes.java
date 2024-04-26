@@ -6,9 +6,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
 
 public class Constantes {
 
+    public static Scanner teclado = new Scanner(System.in);
+    public static Random aleatorio = new Random();
     public static ArrayList<String> lineasRanking;
     public static ArrayList<String> lineasIngles;
     public static ArrayList<String> lineasDiccionario;
@@ -61,7 +65,7 @@ public class Constantes {
         ArrayList<Persona> TodosLosJugadores = new ArrayList<>();
         comprobarArchivo(archivoRanking);
         for (String s : lineasRanking) {
-            TodosLosJugadores.add(new Persona(((s.split(" "))[0]), (Integer.parseInt((s.split(" "))[1]))));
+            TodosLosJugadores.add(new Persona(((s.split(" "))[0])));
         }
         return TodosLosJugadores;
     }

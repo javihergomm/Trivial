@@ -6,17 +6,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-public class Persona {
+
+public class Persona extends Jugador{
 
     int puntuacion;
     String nombre;
 
-    public Persona(String nombre, int puntuacion) {
-        this.puntuacion = puntuacion;
-        this.nombre = nombre;
+    public Persona(String nombre) {
+        super(0, nombre);
     }
 
     public void añadirJugador(Persona jugador){
@@ -53,6 +51,21 @@ public class Persona {
         }else{
             System.err.println("Ese jugador no existe");
         }
+    }
+    public boolean contestarPregunta(String respuesta){
+        boolean correcto;
+        String contestado;
+        contestado = Constantes.teclado.next();
+
+        if (contestado.equalsIgnoreCase(respuesta)){
+                System.out.println("Enhorabuena, la respuesta es correcta!!");
+                correcto=true;
+        } else{
+                System.out.println("Mala suerte, a la proxima será. La respuesta correcta era: " + respuesta);
+                correcto=false;
+        }
+        return correcto;
+
     }
 
     public int getPuntuacion() {
