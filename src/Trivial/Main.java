@@ -28,7 +28,7 @@ public class Main {
 
             if (eleccion == 1){
                 Partida p = new Partida();
-                ArrayList<String> jugadoresQueVanAJugar = Partida.crearJugadores(p.numJugadores, p.numPersonas);
+                ArrayList<Jugador> jugadoresQueVanAJugar = Partida.crearJugadores(p.numJugadores, p.numPersonas);
                 p.jugarPartida(p, jugadoresQueVanAJugar);
 
             } else if (eleccion == 2) {

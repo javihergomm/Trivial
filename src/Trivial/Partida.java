@@ -66,7 +66,7 @@ public class Partida {
                 nombre = Constantes.teclado.nextLine();
                 for (int j = 0; j < Constantes.lineasRanking.size(); j++) {
                     if (nombre.equalsIgnoreCase(Constantes.lineasRanking.get(j).split(" ")[0])) {
-                        jugadoresEnPartida.add(nombre);
+                        jugadoresEnPartida.add(new Persona(nombre));
                         correcto = true;
                     }
                 }
@@ -77,7 +77,7 @@ public class Partida {
             }while (!correcto);
         }
         for (int i = 0; i < (numJugadores-numPersonas); i++){
-            jugadoresEnPartida.add("CPU" + i);
+            jugadoresEnPartida.add(new CPU("CPU" + i));
         }
 
 
@@ -85,14 +85,34 @@ public class Partida {
     }
 
     public void jugarPartida(Partida p, ArrayList<Jugador> jugadores){
-        int pregunta;
+
         for (int i = 0; i < p.numRondas; i++){
             for (int j = 0; j < p.numJugadores; j++){
-                pregunta = Constantes.aleatorio.nextInt(4);
-                System.out.println("ES EL TURNO DE " + jugadores.get(j));
-                if(pregunta==0){
-                    preguntaMates();
+                int pregunta = Constantes.aleatorio.nextInt(3);
+                System.out.println("ES EL TURNO DE " + jugadores.get(j).nombre);
+                if(pregunta==0 && jugadores.get(i) instanceof CPU){
+                    System.out.println("Ha salido una pregunta de matemáticas!");
+                    ((CPU) jugadores.get(i)).contestarPregunta(0, preguntaMates());
 
+                }else if (pregunta==0 && jugadores.get(i) instanceof Persona){
+                    System.out.println("Ha salido una pregunta de matemáticas!");
+                    ((Persona) jugadores.get(i)).contestarPregunta(preguntaMates());
+
+                } else if (pregunta==1 && jugadores.get(i) instanceof CPU) {
+                    System.out.println("Ha salido una pregunta de Letras!");
+                    ((CPU) jugadores.get(i)).contestarPregunta(1, preguntaLetras());
+
+                }else if (pregunta==1 && jugadores.get(i) instanceof Persona){
+                    System.out.println("Ha salido una pregunta de Letras!");
+                    ((Persona) jugadores.get(i)).contestarPregunta(preguntaLetras());
+
+                } else if (pregunta==2 && jugadores.get(i) instanceof CPU) {
+                    System.out.println("Ha salido una pregunta de ingles!");
+                    ((CPU) jugadores.get(i)).contestarPregunta(2, preguntaIngles());
+
+                } else if (pregunta==2 && jugadores.get(i) instanceof Persona) {
+                    System.out.println("Ha salido una pregunta de ingles");
+                    ((Persona) jugadores.get(i)).contestarPregunta(preguntaIngles());
                 }
 
             }

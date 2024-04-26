@@ -15,8 +15,7 @@ public class CPU extends Jugador{
         String contestado;
 
         if (tipoPregunta == 0){
-            contestado=respuesta;
-
+            System.out.println(respuesta);
             System.out.println("Enhorabuena, la respuesta es correcta!!");
             correcto=true;
         } else if (tipoPregunta == 1) {
