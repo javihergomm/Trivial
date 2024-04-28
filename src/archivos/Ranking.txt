@@ -1,5 +1,5 @@
-rosana 3
-javier 1
+javier 2
+rosana 1
 Amanda 0
 Crespo 0
 Alberto 0

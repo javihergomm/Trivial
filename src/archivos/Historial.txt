@@ -10,3 +10,7 @@ alicia 1
 alcia 0 
 alicia 0 
 alicia 1 
+rosana 1 
+rosana 1 
+javier 1 
+javier 2 
