@@ -13,9 +13,12 @@ public class Persona extends Jugador{
     int puntuacion;
     String nombre;
 
-    public Persona(String nombre) {
-        super(0, nombre);
+    public Persona(String nombre, int puntuacion) {
+        super(puntuacion, nombre);
+        this.puntuacion = puntuacion;
+        this.nombre = nombre;
     }
+
 
     public void añadirJugador(Persona jugador){
         jugador.nombre = jugador.nombre + " " + jugador.puntuacion + '\n';
@@ -68,6 +71,11 @@ public class Persona extends Jugador{
 
     }
 
+    @Override
+    public void sumarPuntos(int puntos) {
+        this.setPuntuacion(this.getPuntuacion() + puntos);
+    }
+
     public int getPuntuacion() {
         return puntuacion;
     }
@@ -83,4 +91,5 @@ public class Persona extends Jugador{
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
 }

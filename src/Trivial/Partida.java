@@ -2,6 +2,10 @@ package Trivial;
 
 import net.objecthunter.exp4j.ExpressionBuilder;
 import net.objecthunter.exp4j.Expression;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -50,7 +54,7 @@ public class Partida {
         this.numJugadores = Math.max(numJugadores, 0);
         this.numPersonas = Math.max(numPersonas, 0);
 
-        Log.escribirEnLog("Se ha creado una nueva partida con " + numJugadores + "pugadores, " + numPersonas + "personas y " + numRondas + "Rondas");
+        Log.escribirEnLog("Se ha creado una nueva partida con " + numJugadores + " jugadores, " + numPersonas + " personas y " + numRondas + " Rondas");
     }
 
     public static ArrayList<Jugador> crearJugadores(int numJugadores, int numPersonas){
@@ -66,7 +70,7 @@ public class Partida {
                 nombre = Constantes.teclado.nextLine();
                 for (int j = 0; j < Constantes.lineasRanking.size(); j++) {
                     if (nombre.equalsIgnoreCase(Constantes.lineasRanking.get(j).split(" ")[0])) {
-                        jugadoresEnPartida.add(new Persona(nombre));
+                        jugadoresEnPartida.add(new Persona(nombre, 0));
                         correcto = true;
                     }
                 }
@@ -84,41 +88,66 @@ public class Partida {
         return jugadoresEnPartida;
     }
 
-    public void jugarPartida(Partida p, ArrayList<Jugador> jugadores){
+    public ArrayList<Jugador> jugarPartida(Partida p, ArrayList<Jugador> jugadores){
 
         for (int i = 0; i < p.numRondas; i++){
             for (int j = 0; j < p.numJugadores; j++){
                 int pregunta = Constantes.aleatorio.nextInt(3);
                 System.out.println("ES EL TURNO DE " + jugadores.get(j).nombre);
-                if(pregunta==0 && jugadores.get(i) instanceof CPU){
+                if(pregunta==0 && jugadores.get(j) instanceof CPU){
                     System.out.println("Ha salido una pregunta de matemáticas!");
-                    ((CPU) jugadores.get(i)).contestarPregunta(0, preguntaMates());
+                    if(((CPU) jugadores.get(j)).contestarPregunta(0, preguntaMates())){
+                        jugadores.get(j).puntuacion += 1;
+                    }
 
-                }else if (pregunta==0 && jugadores.get(i) instanceof Persona){
+                }else if (pregunta==0 && jugadores.get(j) instanceof Persona){
                     System.out.println("Ha salido una pregunta de matemáticas!");
-                    ((Persona) jugadores.get(i)).contestarPregunta(preguntaMates());
+                    if (((Persona) jugadores.get(j)).contestarPregunta(preguntaMates())){
+                        jugadores.get(j).puntuacion += 1;
+                    }
 
-                } else if (pregunta==1 && jugadores.get(i) instanceof CPU) {
+                } else if (pregunta==1 && jugadores.get(j) instanceof CPU) {
                     System.out.println("Ha salido una pregunta de Letras!");
-                    ((CPU) jugadores.get(i)).contestarPregunta(1, preguntaLetras());
+                    if (((CPU) jugadores.get(j)).contestarPregunta(1, preguntaLetras())){
+                        jugadores.get(j).puntuacion += 1;
+                    }
 
-                }else if (pregunta==1 && jugadores.get(i) instanceof Persona){
+                }else if (pregunta==1 && jugadores.get(j) instanceof Persona){
                     System.out.println("Ha salido una pregunta de Letras!");
-                    ((Persona) jugadores.get(i)).contestarPregunta(preguntaLetras());
+                    if (((Persona) jugadores.get(j)).contestarPregunta(preguntaLetras())){
+                        jugadores.get(j).puntuacion += 1;
+                    }
 
-                } else if (pregunta==2 && jugadores.get(i) instanceof CPU) {
+                } else if (pregunta==2 && jugadores.get(j) instanceof CPU) {
                     System.out.println("Ha salido una pregunta de ingles!");
-                    ((CPU) jugadores.get(i)).contestarPregunta(2, preguntaIngles());
+                    if (((CPU) jugadores.get(j)).contestarPregunta(2, preguntaIngles())){
+                        jugadores.get(j).puntuacion += 1;
+                    }
 
-                } else if (pregunta==2 && jugadores.get(i) instanceof Persona) {
+                } else if (pregunta==2 && jugadores.get(j) instanceof Persona) {
                     System.out.println("Ha salido una pregunta de ingles");
-                    ((Persona) jugadores.get(i)).contestarPregunta(preguntaIngles());
+                    if (((Persona) jugadores.get(j)).contestarPregunta(preguntaIngles())){
+                        jugadores.get(j).puntuacion += 1;
+                    }
                 }
 
             }
-
         }
-
+        jugadores.sort((o1, o2) -> Integer.compare(o2.getPuntuacion(), o1.getPuntuacion()));
+        for (int i = 0; i < p.numJugadores; i++){
+            System.out.println(jugadores.get(i).nombre + " " + jugadores.get(i).puntuacion);
+            try {
+                Files.write(Constantes.archivoHistorial, (jugadores.get(i).nombre + ' ' + (jugadores.get(i).puntuacion) + " ").getBytes(), StandardOpenOption.APPEND);
+            }catch (IOException e){
+                System.err.println("Error al escribir en el Historial");
+            }
+        }
+        try{
+            Files.write(Constantes.archivoHistorial, "\n".getBytes(), StandardOpenOption.APPEND);
+        }catch (IOException e){
+            System.err.println("Error al escribir en el Historial");
+        }
+        return jugadores;
     }
 
 

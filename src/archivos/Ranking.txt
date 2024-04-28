@@ -1,4 +1,6 @@
-Peter 12
-Javier 10
-Pedro 4
-Amanda 3
+javier 1
+Amanda 0
+Crespo 0
+Alberto 0
+Daniel 0
+pedro 0

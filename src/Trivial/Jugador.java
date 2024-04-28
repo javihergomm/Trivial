@@ -8,4 +8,22 @@ public abstract class Jugador {
         this.puntuacion = puntuacion;
         this.nombre = nombre;
     }
+
+    public int getPuntuacion() {
+        return puntuacion;
+    }
+
+    public void setPuntuacion(int puntuacion) {
+        this.puntuacion = puntuacion;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public abstract void sumarPuntos(int puntos);
 }

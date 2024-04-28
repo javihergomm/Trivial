@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList <Persona> jugadores = Constantes.TodosLosJugadores();
+        ArrayList<Persona> jugadores = Constantes.TodosLosJugadores();
 
         menu(jugadores);
 
@@ -17,22 +17,43 @@ public class Main {
         System.out.println("Bienvenido a ¿Quien quiere ser aprobado?");
 
         do {
-
+            boolean error = false;
             System.out.println("¿Que quieres Hacer?");
             System.out.println("1. Iniciar una nueva partida");
             System.out.println("2. Ranking");
             System.out.println("3. Historial");
             System.out.println("4. Jugadores");
             System.out.println("5. Salir");
-            eleccion = Constantes.teclado.nextInt();
+            try{
+                eleccion = Constantes.teclado.nextInt();
+            }catch (Exception e){
+                System.err.println("Debes introducir un numero");
+                Constantes.teclado.nextLine();
+                eleccion = 7;
+                error = true;
+            }
+
 
             if (eleccion == 1){
                 Partida p = new Partida();
-                ArrayList<Jugador> jugadoresQueVanAJugar = Partida.crearJugadores(p.numJugadores, p.numPersonas);
-                p.jugarPartida(p, jugadoresQueVanAJugar);
+                ArrayList<Jugador> jugadoresQueJuegan = Partida.crearJugadores(p.numJugadores, p.numPersonas);
+                jugadoresQueJuegan = (p.jugarPartida(p, jugadoresQueJuegan));
+                for (int i=jugadoresQueJuegan.size()-1; i > 0; i--) {
+                    if (jugadoresQueJuegan.get(i) instanceof CPU){
+                        jugadoresQueJuegan.remove(i);
+                    }
+                }
+                for (Jugador jugador : jugadoresQueJuegan) {
+                    for (int j = 0; j < jugadores.size(); j++) {
+                        if (jugador.nombre.equalsIgnoreCase(jugadores.get(j).nombre)) {
+                            jugadores.set(j, (Persona) jugador);
+                        }
+                    }
+                }
+                Constantes.ordenarRanking(Constantes.actualizarRanking(jugadores));
 
             } else if (eleccion == 2) {
-                for (Persona jugadore : jugadores) {
+                for (Jugador jugadore : jugadores) {
                     System.out.println(jugadore.nombre + " " +jugadore.puntuacion);
                 }
                 Log.escribirEnLog("Se ha mostrado el Ranking");
@@ -42,13 +63,20 @@ public class Main {
 
             } else if (eleccion == 3) {
 
+                for (String hist : Constantes.lineasHistorial){
+                    System.out.println(hist);
+                }
+                Log.escribirEnLog("Se ha mostrado el Ranking");
+                System.out.print("Presiona enter para continuar...");
+                Constantes.teclado.nextLine();
+                Constantes.teclado.nextLine();
 
             } else if (eleccion == 4) {
 
                 menuJugadores(jugadores);
-            } else if (eleccion != 5){
+            } else if (eleccion != 5 && !error){
 
-                System.out.println("Error! No has escogido un número válido");
+                System.err.println("Error! No has escogido un número válido");
 
             }
 
@@ -71,7 +99,7 @@ public class Main {
             eleccion = Constantes.teclado.nextInt();
 
             if (eleccion == 1){
-                for (Persona jugadore : jugadores) {
+                for (Jugador jugadore : jugadores) {
                     System.out.println(jugadore.nombre);
                 }
                 Log.escribirEnLog("Se han mostrado los jugadores");
@@ -79,11 +107,36 @@ public class Main {
                 Constantes.teclado.nextLine();
                 Constantes.teclado.nextLine();
             } else if (eleccion == 2) {
-                System.out.println("¿Cuál es el nombre del jugador que quieres añadir? (Solo el nombre y sin espacios)");
-                nombre = Constantes.teclado.next();
-                jugadores.add(new Persona(nombre));
-                jugadores.getLast().añadirJugador(jugadores.getLast());
-                Log.escribirEnLog("Se ha añadido un nuevo jugador llamado " + nombre);
+
+                boolean todoOK;
+
+                    System.out.println("¿Cuál es el nombre del jugador que quieres añadir? (Solo el nombre y sin espacios)");
+                    System.out.println("O escribe volver para no añadir ningun jugador");
+                    nombre = Constantes.teclado.next();
+                    if(nombre.equalsIgnoreCase("volver")){
+
+                    }else {
+                        do{
+
+                            todoOK=true;
+                            for (Persona jugadore : jugadores) {
+                                if (nombre.equalsIgnoreCase(jugadore.nombre)) {
+                                    todoOK = false;
+                                }
+                            }
+                            if (!todoOK) {
+                                System.err.println("Ese jugador ya existe, por favor introduce otro");
+                                System.out.println("¿Cuál es el nombre del jugador que quieres añadir? (Solo el nombre y sin espacios)");
+                                System.out.println("O escribe volver para no añadir ningun jugador");
+                                nombre = Constantes.teclado.next();
+                            }
+                        }while (!todoOK);
+                        jugadores.add(new Persona(nombre, 0));
+                        jugadores.getLast().añadirJugador(jugadores.getLast());
+                        Log.escribirEnLog("Se ha añadido un nuevo jugador llamado " + nombre);
+                    }
+
+
 
             } else if (eleccion == 3) {
                 System.out.println("¿Cuál es el nombre del jugador que quieres Eliminar? (Solo el nombre y sin espacios)");

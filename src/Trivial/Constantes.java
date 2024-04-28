@@ -16,10 +16,12 @@ public class Constantes {
     public static ArrayList<String> lineasRanking;
     public static ArrayList<String> lineasIngles;
     public static ArrayList<String> lineasDiccionario;
+    public static ArrayList<String> lineasHistorial;
 
     public static Path archivoRanking = Paths.get("src/archivos/Ranking.txt");
     public static Path archivoIngles = Paths.get("src/archivos/ingles.txt");
     public static Path archivoDiccionario = Paths.get("src/archivos/diccionario.txt");
+    public static Path archivoHistorial = Paths.get("src/archivos/Historial.txt");
 
     //Rellena archivoRanking
     static {
@@ -45,7 +47,15 @@ public class Constantes {
             comprobarArchivo(archivoDiccionario);
             lineasDiccionario = (ArrayList<String>) Files.readAllLines(archivoDiccionario);
         } catch (IOException e) {
-            System.err.println("No se ha podido leer el archivo ingles.txt");
+            System.err.println("No se ha podido leer el archivo diccionario.txt");
+        }
+    }
+    static {
+        try {
+            comprobarArchivo(archivoHistorial);
+            lineasHistorial = (ArrayList<String>) Files.readAllLines(archivoHistorial);
+        } catch (IOException e) {
+            System.err.println("No se ha podido leer el archivo Historial.txt");
         }
     }
 
@@ -65,21 +75,34 @@ public class Constantes {
         ArrayList<Persona> TodosLosJugadores = new ArrayList<>();
         comprobarArchivo(archivoRanking);
         for (String s : lineasRanking) {
-            TodosLosJugadores.add(new Persona(((s.split(" "))[0])));
+            TodosLosJugadores.add(new Persona(((s.split(" "))[0]), Integer.parseInt((s.split(" "))[1])));
         }
         return TodosLosJugadores;
     }
 
-    //Ordena el ranking de mayor a menor.
-    public static void actualizarRanking(ArrayList<Persona> jugadores) {
+
+    public static ArrayList<Persona> actualizarRanking(ArrayList<Persona> jugadores) {
+
+        for (int i=0; i < jugadores.size(); i++) {
+            for (String linea : lineasRanking) {
+                String[] partes = linea.split(" ");
+                if (partes[0].equalsIgnoreCase(jugadores.get(i).getNombre())) {
+                    int puntosActuales = Integer.parseInt(partes[1]);
+                    jugadores.get(i).setPuntuacion(jugadores.get(i).getPuntuacion() + puntosActuales);
+                }
+            }
+        }
+        return jugadores;
+
+    }
+
+    public static void ordenarRanking(ArrayList<Persona> jugadores){
 
         jugadores.sort((o1, o2) -> Integer.compare(o2.getPuntuacion(), o1.getPuntuacion()));
-
-
         try {
             Files.delete(archivoRanking);
             Files.createFile(archivoRanking);
-            for (Persona jugadore : jugadores) {
+            for (Jugador jugadore : jugadores) {
                 Files.write(archivoRanking, (jugadore.nombre + ' ' + (jugadore.puntuacion) + '\n').getBytes(), StandardOpenOption.APPEND);
             }
         } catch (IOException e) {
@@ -87,6 +110,4 @@ public class Constantes {
         }
 
     }
-
-
 }
