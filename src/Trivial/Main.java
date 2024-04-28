@@ -35,6 +35,7 @@ public class Main {
 
 
             if (eleccion == 1){
+                boolean encontrado = false;
                 Partida p = new Partida();
                 ArrayList<Jugador> jugadoresQueJuegan = Partida.crearJugadores(p.numJugadores, p.numPersonas);
                 jugadoresQueJuegan = (p.jugarPartida(p, jugadoresQueJuegan));
@@ -47,12 +48,18 @@ public class Main {
                     for (int j = 0; j < jugadores.size(); j++) {
                         if (jugador.nombre.equalsIgnoreCase(jugadores.get(j).nombre)) {
                             jugadores.set(j, (Persona) jugador);
+                            encontrado = true;
                         }
                     }
+                    if (!encontrado){
+                        jugadores.add((Persona) jugador);
+                    }
                 }
-                Constantes.ordenarRanking(Constantes.actualizarRanking(jugadores));
+                jugadores = Constantes.actualizarRanking(jugadores);
+                Constantes.ordenarRanking(jugadores);
 
             } else if (eleccion == 2) {
+                Constantes.ordenarRanking(jugadores);
                 for (Jugador jugadore : jugadores) {
                     System.out.println(jugadore.nombre + " " +jugadore.puntuacion);
                 }
@@ -132,7 +139,7 @@ public class Main {
                             }
                         }while (!todoOK);
                         jugadores.add(new Persona(nombre, 0));
-                        jugadores.getLast().añadirJugador(jugadores.getLast());
+                        Persona.añadirJugador(jugadores.getLast());
                         Log.escribirEnLog("Se ha añadido un nuevo jugador llamado " + nombre);
                     }
 
@@ -149,10 +156,5 @@ public class Main {
             }
 
         }while (eleccion != 4);
-
     }
-
-
-
-
 }

@@ -99,6 +99,7 @@ public class Constantes {
     public static void ordenarRanking(ArrayList<Persona> jugadores){
 
         jugadores.sort((o1, o2) -> Integer.compare(o2.getPuntuacion(), o1.getPuntuacion()));
+
         try {
             Files.delete(archivoRanking);
             Files.createFile(archivoRanking);

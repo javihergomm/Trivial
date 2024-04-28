@@ -16,26 +16,67 @@ public class Partida {
     int numPersonas;
 
     public Partida() {
-        int numRondas;
-        int numJugadores;
-        int numPersonas;
+        int numRondas = 0;
+        int numJugadores = 0;
+        int numPersonas = 0;
+        boolean correcto = true;
 
         System.out.println("¿Cuántos jugadores va a haber?");
-        numJugadores = Constantes.teclado.nextInt();
+        do{
+            try{
+                numJugadores = Constantes.teclado.nextInt();
+                correcto = true;
+            }catch (Exception e){
+                Constantes.teclado.nextLine();
+                System.err.println("Debes introducir un número");
+                correcto = false;
+            }
+        }while(!correcto);
+        
         while (numJugadores > 4){
             System.out.println("Error, el número de jugadores no puede ser superior a 4");
             System.out.println("¿Cuántos jugadores va a haber?");
-            numJugadores = Constantes.teclado.nextInt();
+            do{
+                try{
+                    numJugadores = Constantes.teclado.nextInt();
+                    correcto = true;
+                }catch (Exception e){
+                    Constantes.teclado.nextLine();
+                    System.err.println("Debes introducir un número");
+                    correcto = false;
+                }
+            }while(!correcto);
+
+
         }
         System.out.println("¿Y cuántas personas?");
-        numPersonas = Constantes.teclado.nextInt();
+        do{
+            try{
+                numPersonas = Constantes.teclado.nextInt();
+                correcto = true;
+            }catch (Exception e){
+                Constantes.teclado.nextLine();
+                System.err.println("Debes introducir un número");
+                correcto = false;
+            }
+        }while(!correcto);
+
 
         System.out.println("¿Cuántas rondas vais a querer jugar? (escoge una de las siguientes opciones)");
         System.out.println("3 (partida rápida)");
         System.out.println("5 (partida corta)");
         System.out.println("10 (partida normal)");
         System.out.println("20 (partida larga)");
-        numRondas = Constantes.teclado.nextInt();
+        do{
+            try{
+                numRondas = Constantes.teclado.nextInt();
+                correcto = true;
+            }catch (Exception e){
+                Constantes.teclado.nextLine();
+                System.err.println("Debes introducir un número");
+                correcto = false;
+            }
+        }while(!correcto);
 
         while (numRondas != 3 && numRondas != 5 && numRondas != 10 && numRondas != 20){
 
@@ -46,7 +87,16 @@ public class Partida {
             System.out.println("5 (partida corta)");
             System.out.println("10 (partida normal)");
             System.out.println("20 (partida larga)");
-            numRondas = Constantes.teclado.nextInt();
+            do{
+                try{
+                    numRondas = Constantes.teclado.nextInt();
+                    correcto = true;
+                }catch (Exception e){
+                    Constantes.teclado.nextLine();
+                    System.err.println("Debes introducir un número");
+                    correcto = false;
+                }
+            }while(!correcto);
         }
         Constantes.teclado.nextLine();
 
@@ -60,6 +110,7 @@ public class Partida {
     public static ArrayList<Jugador> crearJugadores(int numJugadores, int numPersonas){
 
         ArrayList<Jugador> jugadoresEnPartida = new ArrayList<>();
+        String añadir;
         String nombre;
         boolean correcto;
 
@@ -75,8 +126,19 @@ public class Partida {
                     }
                 }
                 if (!correcto) {
-                    System.err.println("Ese no es un jugador válido");
-                    System.err.println("Por favor introduce un jugador añadido al sistema");
+                    System.err.println("Ese jugador no esta añadido en el sistema");
+                    System.out.println("¿Quieres añadirlo?");
+                    añadir = Constantes.teclado.nextLine();
+                    if (añadir.equalsIgnoreCase("si") || añadir.equalsIgnoreCase("s")){
+                        jugadoresEnPartida.add(new Persona(nombre, 0));
+                        Persona.añadirJugador((Persona) jugadoresEnPartida.getLast());
+                        Log.escribirEnLog("Se ha añadido un nuevo jugador llamado " + nombre);
+                        System.out.println("Jugador " + nombre + " añadido correctamente");
+                        correcto = true;
+
+                    }else{
+                        System.out.println("Jugador no añadido");
+                    }
                 }
             }while (!correcto);
         }

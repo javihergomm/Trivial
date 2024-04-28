@@ -20,14 +20,11 @@ public class Persona extends Jugador{
     }
 
 
-    public void añadirJugador(Persona jugador){
-        jugador.nombre = jugador.nombre + " " + jugador.puntuacion + '\n';
-        Path archivo = Paths.get("src/archivos/Ranking.txt");
-
+    public static void añadirJugador(Persona jugador){
         try {
-            Files.write(archivo, jugador.nombre.getBytes(), StandardOpenOption.APPEND);
+            Files.write(Constantes.archivoRanking, (jugador.getNombre() + ' ' + jugador.getPuntuacion() + '\n').getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
-            System.err.println("Error al escribir en el archivo: " + e.getMessage());
+            System.err.println("Error al escribir en el archivo Ranking.txt");
         }
 
     }
