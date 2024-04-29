@@ -25,5 +25,4 @@ public abstract class Jugador {
         this.nombre = nombre;
     }
 
-    public abstract void sumarPuntos(int puntos);
 }

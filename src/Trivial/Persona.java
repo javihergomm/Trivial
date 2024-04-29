@@ -2,21 +2,17 @@ package Trivial;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 
 public class Persona extends Jugador{
 
-    int puntuacion;
-    String nombre;
+    int puntosEnElRanking;
 
-    public Persona(String nombre, int puntuacion) {
-        super(puntuacion, nombre);
-        this.puntuacion = puntuacion;
-        this.nombre = nombre;
+    public Persona(String nombre, int puntosEnElRanking) {
+        super(0, nombre);
+        this.puntosEnElRanking = puntosEnElRanking;
     }
 
 
@@ -68,25 +64,11 @@ public class Persona extends Jugador{
 
     }
 
-    @Override
-    public void sumarPuntos(int puntos) {
-        this.setPuntuacion(this.getPuntuacion() + puntos);
+    public int getPuntosEnElRanking() {
+        return puntosEnElRanking;
     }
 
-    public int getPuntuacion() {
-        return puntuacion;
+    public void setPuntosEnElRanking(int puntosEnElRanking) {
+        this.puntosEnElRanking = puntosEnElRanking;
     }
-
-    public void setPuntuacion(int puntuacion) {
-        this.puntuacion = puntuacion;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
 }

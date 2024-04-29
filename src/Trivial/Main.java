@@ -41,7 +41,7 @@ public class Main {
                 Partida p = new Partida();
                 ArrayList<Jugador> jugadoresQueJuegan = Partida.crearJugadores(p.numJugadores, p.numPersonas);
                 jugadoresQueJuegan = (p.jugarPartida(p, jugadoresQueJuegan));
-                for (int i=jugadoresQueJuegan.size()-1; i > 0; i--) {
+                for (int i = jugadoresQueJuegan.size()-1; i >= 0; i--) {
                     if (jugadoresQueJuegan.get(i) instanceof CPU){
                         jugadoresQueJuegan.remove(i);
                     }
@@ -73,13 +73,13 @@ public class Main {
             } else if (eleccion == 3) {
 
                 try {
-                    Constantes.comprobarArchivo(Constantes.archivoDiccionario);
-                    Constantes.lineasDiccionario = (ArrayList<String>) Files.readAllLines(Constantes.archivoDiccionario);
+                    Constantes.comprobarArchivo(Constantes.archivoHistorial);
+                    Constantes.lineasHistorial = (ArrayList<String>) Files.readAllLines(Constantes.archivoHistorial);
                 } catch (IOException e) {
                     System.err.println("No se ha podido leer el archivo diccionario.txt");
                 }
 
-                for (String lineas : Constantes.lineasDiccionario){
+                for (String lineas : Constantes.lineasHistorial){
                     System.out.println(lineas);
                 }
                 Log.escribirEnLog("Se ha mostrado el Ranking");

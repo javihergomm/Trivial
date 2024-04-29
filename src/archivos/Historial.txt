@@ -14,3 +14,9 @@ rosana 1
 rosana 1 
 javier 1 
 javier 2
+CPU0 3 javier 2 
+CPU0 2 javier 0 
+CPU0 1 javier 0 
+javier 1 
+javier 1 
+javier 0 

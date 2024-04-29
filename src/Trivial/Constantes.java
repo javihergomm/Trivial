@@ -79,8 +79,7 @@ public class Constantes {
             for (String linea : lineasRanking) {
                 String[] partes = linea.split(" ");
                 if (partes[0].equalsIgnoreCase(jugadores.get(i).getNombre())) {
-                    int puntosActuales = Integer.parseInt(partes[1]);
-                    jugadores.get(i).setPuntuacion(jugadores.get(i).getPuntuacion() + puntosActuales);
+                    jugadores.get(i).setPuntuacion(jugadores.get(i).getPuntosEnElRanking() + jugadores.get(i).getPuntuacion());
                 }
             }
         }
@@ -96,6 +95,7 @@ public class Constantes {
             Files.delete(archivoRanking);
             Files.createFile(archivoRanking);
             for (Jugador jugadore : jugadores) {
+                System.out.println(jugadore.nombre + jugadore.getPuntuacion());
                 Files.write(archivoRanking, (jugadore.nombre + ' ' + (jugadore.puntuacion) + '\n').getBytes(), StandardOpenOption.APPEND);
             }
         } catch (IOException e) {

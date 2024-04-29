@@ -62,7 +62,7 @@ public class Partida {
                 System.err.println("Debes introducir un número");
                 correcto = false;
             }
-        }while(!correcto && numPersonas>numJugadores);
+        }while(!correcto || numPersonas>numJugadores);
 
 
         System.out.println("¿Cuántas rondas vais a querer jugar? (escoge una de las siguientes opciones)");

@@ -96,7 +96,4 @@ public class CPU extends Jugador{
 
         return correcto;
     }
-    @Override
-    public void sumarPuntos(int puntos) {
-    }
 }
