@@ -50,14 +50,6 @@ public class Constantes {
             System.err.println("No se ha podido leer el archivo diccionario.txt");
         }
     }
-    static {
-        try {
-            comprobarArchivo(archivoHistorial);
-            lineasHistorial = (ArrayList<String>) Files.readAllLines(archivoHistorial);
-        } catch (IOException e) {
-            System.err.println("No se ha podido leer el archivo Historial.txt");
-        }
-    }
 
     //Comprueba si el archivo introducido existe, si no es así lo crea.
     public static void comprobarArchivo(Path archivo){

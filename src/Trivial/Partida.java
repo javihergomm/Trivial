@@ -51,6 +51,9 @@ public class Partida {
         }
         System.out.println("¿Y cuántas personas?");
         do{
+            if (numPersonas>numJugadores){
+                System.err.println("No puede haber más personas que jugadores!");
+            }
             try{
                 numPersonas = Constantes.teclado.nextInt();
                 correcto = true;
@@ -59,7 +62,7 @@ public class Partida {
                 System.err.println("Debes introducir un número");
                 correcto = false;
             }
-        }while(!correcto);
+        }while(!correcto && numPersonas>numJugadores);
 
 
         System.out.println("¿Cuántas rondas vais a querer jugar? (escoge una de las siguientes opciones)");
@@ -117,29 +120,38 @@ public class Partida {
         for (int i=0; i < numPersonas; i++){
             correcto = false;
             do {
-                System.out.println("¿Como se llama el jugador " + (i+1) + "?");
+                System.out.println("¿Como se llama el jugador " + (i + 1) + "?");
                 nombre = Constantes.teclado.nextLine();
-                for (int j = 0; j < Constantes.lineasRanking.size(); j++) {
-                    if (nombre.equalsIgnoreCase(Constantes.lineasRanking.get(j).split(" ")[0])) {
-                        jugadoresEnPartida.add(new Persona(nombre, 0));
-                        correcto = true;
-                    }
+                String primeros3 = "";
+                if (nombre.length() >=3){
+                    primeros3 = nombre.substring(0, 3);
                 }
-                if (!correcto) {
-                    System.err.println("Ese jugador no esta añadido en el sistema");
-                    System.out.println("¿Quieres añadirlo?");
-                    añadir = Constantes.teclado.nextLine();
-                    if (añadir.equalsIgnoreCase("si") || añadir.equalsIgnoreCase("s")){
-                        jugadoresEnPartida.add(new Persona(nombre, 0));
-                        Persona.añadirJugador((Persona) jugadoresEnPartida.getLast());
-                        Log.escribirEnLog("Se ha añadido un nuevo jugador llamado " + nombre);
-                        System.out.println("Jugador " + nombre + " añadido correctamente");
-                        correcto = true;
+                if (primeros3.equalsIgnoreCase("cpu")) {
+                    System.err.println("el nombre no puede empezar por 'CPU'");
+                } else {
+                    for (int j = 0; j < Constantes.lineasRanking.size(); j++) {
+                        if (nombre.equalsIgnoreCase(Constantes.lineasRanking.get(j).split(" ")[0])) {
+                            jugadoresEnPartida.add(new Persona(nombre, 0));
+                            correcto = true;
+                        }
+                    }
+                    if (!correcto) {
+                        System.err.println("Ese jugador no esta añadido en el sistema");
+                        System.out.println("¿Quieres añadirlo?");
+                        añadir = Constantes.teclado.nextLine();
+                        if (añadir.equalsIgnoreCase("si") || añadir.equalsIgnoreCase("s")) {
+                            jugadoresEnPartida.add(new Persona(nombre, 0));
+                            Persona.añadirJugador((Persona) jugadoresEnPartida.getLast());
+                            Log.escribirEnLog("Se ha añadido un nuevo jugador llamado " + nombre);
+                            System.out.println("Jugador " + nombre + " añadido correctamente");
+                            correcto = true;
 
-                    }else{
-                        System.out.println("Jugador no añadido");
+                        } else {
+                            System.out.println("Jugador no añadido");
+                        }
                     }
                 }
+
             }while (!correcto);
         }
         for (int i = 0; i < (numJugadores-numPersonas); i++){
