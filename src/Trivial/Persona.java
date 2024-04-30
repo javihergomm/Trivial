@@ -63,7 +63,7 @@ public class Persona extends Jugador{
     public boolean contestarPregunta(String respuesta){
         boolean correcto;
         String contestado;
-        contestado = Constantes.teclado.next();
+        contestado = Constantes.teclado.nextLine();
 
         if (contestado.equalsIgnoreCase(respuesta)){
                 System.out.println("Enhorabuena, la respuesta es correcta!!");
