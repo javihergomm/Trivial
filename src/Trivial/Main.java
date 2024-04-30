@@ -4,6 +4,7 @@ package Trivial;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import static Trivial.Constantes.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,11 +17,11 @@ public class Main {
     public static void menu (ArrayList<Persona> jugadores){
         int eleccion;
 
-        System.out.println("Bienvenido a ¿Quien quiere ser aprobado?");
+        System.out.println(ANSI_GREEN + "Bienvenido a ¿Quien quiere ser aprobado?" + ANSI_RESET);
 
         do {
             boolean error = false;
-            System.out.println("¿Que quieres Hacer?");
+            System.out.println(ANSI_BLUE + "¿Que quieres Hacer?" + ANSI_RESET);
             System.out.println("1. Iniciar una nueva partida");
             System.out.println("2. Ranking");
             System.out.println("3. Historial");
@@ -172,7 +173,7 @@ public class Main {
                 Log.escribirEnLog("Se ha eliminado el jugador " + nombre);
             } else if (eleccion != 4 && !error){
 
-                System.out.println("Error! No has escogido un número válido");
+                System.err.println("Error! No has escogido un número válido");
             }
 
         }while (eleccion != 4);

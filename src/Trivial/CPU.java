@@ -1,5 +1,5 @@
 package Trivial;
-
+import static Trivial.Constantes.*;
 public class CPU extends Jugador{
 
     public CPU(String nombre) {
@@ -17,7 +17,7 @@ public class CPU extends Jugador{
             } catch (InterruptedException e) {
                 System.err.println("Error al esperar");
             }
-            System.out.println(respuesta);
+            System.out.println(ANSI_LIGHTGREEN + respuesta + ANSI_RESET);
             System.out.println("Enhorabuena, la respuesta es correcta!!");
             correcto=true;
             try {
@@ -39,8 +39,8 @@ public class CPU extends Jugador{
             }
 
             contestado = new String(arrayRespuesta);
-            System.out.println(contestado);
-            System.out.println("Mala suerte, a la proxima será. La respuesta correcta era: " + respuesta);
+            System.out.println(ANSI_LIGHTGREEN + contestado + ANSI_RESET);
+            System.out.println("Mala suerte, a la proxima será. La respuesta correcta era: " + ANSI_LIGHTGREEN + respuesta + ANSI_RESET);
             correcto=false;
             try {
                 Thread.sleep(3000);
@@ -70,7 +70,7 @@ public class CPU extends Jugador{
                 contestado = "d";
             }
 
-            System.out.println(contestado);
+            System.out.println(ANSI_LIGHTGREEN + contestado + ANSI_RESET);
 
             if (contestado.equalsIgnoreCase(respuesta)){
                 System.out.println("Enhorabuena, la respuesta es correcta!!");
@@ -81,7 +81,7 @@ public class CPU extends Jugador{
                     System.err.println("Error al esperar");
                 }
             } else{
-                System.out.println("Mala suerte, a la proxima será. La respuesta correcta era: " + respuesta);
+                System.out.println("Mala suerte, a la proxima será. La respuesta correcta era: " + ANSI_LIGHTGREEN + respuesta + ANSI_RESET);
                 correcto=false;
                 try {
                     Thread.sleep(3000);

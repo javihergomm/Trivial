@@ -5,6 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
+import static Trivial.Constantes.ANSI_LIGHTGREEN;
+import static Trivial.Constantes.ANSI_RESET;
+
 
 public class Persona extends Jugador{
 
@@ -66,7 +69,7 @@ public class Persona extends Jugador{
                 System.out.println("Enhorabuena, la respuesta es correcta!!");
                 correcto=true;
         } else{
-                System.out.println("Mala suerte, a la proxima será. La respuesta correcta era: " + respuesta);
+                System.out.println("Mala suerte, a la proxima será. La respuesta correcta era: " + ANSI_LIGHTGREEN + respuesta + ANSI_RESET);
                 correcto=false;
         }
         return correcto;

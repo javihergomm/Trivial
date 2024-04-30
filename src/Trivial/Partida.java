@@ -2,7 +2,7 @@ package Trivial;
 
 import net.objecthunter.exp4j.ExpressionBuilder;
 import net.objecthunter.exp4j.Expression;
-
+import static Trivial.Constantes.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
@@ -71,7 +71,7 @@ public class Partida {
                             correcto = true;
 
                         } else {
-                            System.out.println("Jugador no añadido");
+                            System.out.println(ANSI_GREEN + "Jugador no añadido" + ANSI_RESET);
                         }
                     }
                 }
@@ -91,39 +91,39 @@ public class Partida {
         for (int i = 0; i < p.numRondas; i++){
             for (int j = 0; j < p.numJugadores; j++){
                 int pregunta = Constantes.aleatorio.nextInt(3);
-                System.out.println("ES EL TURNO DE " + jugadores.get(j).nombre);
+                System.out.println(ANSI_CYAN + "ES EL TURNO DE " + jugadores.get(j).nombre + ANSI_RESET);
                 if(pregunta==0 && jugadores.get(j) instanceof CPU){
-                    System.out.println("Ha salido una pregunta de matemáticas!");
+                    System.out.println(ANSI_RED + "Ha salido una pregunta de matemáticas!" + ANSI_RESET);
                     if(((CPU) jugadores.get(j)).contestarPregunta(0, preguntaMates())){
                         jugadores.get(j).puntuacion += 1;
                     }
 
                 }else if (pregunta==0 && jugadores.get(j) instanceof Persona){
-                    System.out.println("Ha salido una pregunta de matemáticas!");
+                    System.out.println(ANSI_RED + "Ha salido una pregunta de matemáticas!" + ANSI_RESET);
                     if (((Persona) jugadores.get(j)).contestarPregunta(preguntaMates())){
                         jugadores.get(j).puntuacion += 1;
                     }
 
                 } else if (pregunta==1 && jugadores.get(j) instanceof CPU) {
-                    System.out.println("Ha salido una pregunta de Letras!");
+                    System.out.println(ANSI_BLUE + "Ha salido una pregunta de Letras!" + ANSI_RESET);
                     if (((CPU) jugadores.get(j)).contestarPregunta(1, preguntaLetras())){
                         jugadores.get(j).puntuacion += 1;
                     }
 
                 }else if (pregunta==1 && jugadores.get(j) instanceof Persona){
-                    System.out.println("Ha salido una pregunta de Letras!");
+                    System.out.println(ANSI_BLUE + "Ha salido una pregunta de Letras!" + ANSI_RESET);
                     if (((Persona) jugadores.get(j)).contestarPregunta(preguntaLetras())){
                         jugadores.get(j).puntuacion += 1;
                     }
 
                 } else if (pregunta==2 && jugadores.get(j) instanceof CPU) {
-                    System.out.println("Ha salido una pregunta de ingles!");
+                    System.out.println(ANSI_PURPLE + "Ha salido una pregunta de ingles!" + ANSI_RESET);
                     if (((CPU) jugadores.get(j)).contestarPregunta(2, preguntaIngles())){
                         jugadores.get(j).puntuacion += 1;
                     }
 
                 } else if (pregunta==2 && jugadores.get(j) instanceof Persona) {
-                    System.out.println("Ha salido una pregunta de ingles");
+                    System.out.println(ANSI_PURPLE + "Ha salido una pregunta de ingles" + ANSI_RESET);
                     if (((Persona) jugadores.get(j)).contestarPregunta(preguntaIngles())){
                         jugadores.get(j).puntuacion += 1;
                     }
