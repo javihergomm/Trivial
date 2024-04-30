@@ -25,25 +25,34 @@ public class Persona extends Jugador{
 
     }
 
-    public static void eliminarJugador(String jugador){
+    public static void eliminarJugador(String jugador, ArrayList<Persona> jugadores){
         Constantes.comprobarArchivo(Constantes.archivoRanking);
-        ArrayList<String> lineasRanking = Constantes.lineasRanking;
         boolean encontrado = false;
 
-        for (int i=0; i < lineasRanking.size(); i++){
+        for (int i=0; i < jugadores.size(); i++){
 
-            if (jugador.equalsIgnoreCase(lineasRanking.get(i).split(" ")[0])){
-                lineasRanking.remove(i);
+            if (jugador.equalsIgnoreCase(jugadores.get(i).nombre)){
+                jugadores.remove(i);
                 encontrado = true;
             }
         }
 
+
         if (encontrado) {
-            try {
-                Files.write(Constantes.archivoRanking, lineasRanking);
-            } catch (IOException e) {
-                System.err.println("Ha habido un error al escribir en el archivo Ranking.txt");
+            try{
+                Files.delete(Constantes.archivoRanking);
+                Files.createFile(Constantes.archivoRanking);
+            }catch (IOException e){
+                System.err.println("Error al borrar y crear el archivo Ranking.txt");
             }
+            for (int i = 0; i < jugadores.size(); i++){
+                try {
+                    Files.writeString(Constantes.archivoRanking, (jugadores.get(i).getNombre() + " " + jugadores.get(i).getPuntuacion()), StandardOpenOption.APPEND);
+                } catch (IOException e) {
+                    System.err.println("Ha habido un error al escribir en el archivo Ranking.txt");
+                }
+            }
+
         }else{
             System.err.println("Ese jugador no existe");
         }

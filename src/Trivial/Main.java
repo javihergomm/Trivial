@@ -143,6 +143,7 @@ public class Main {
                     }while (!todoOK);
                     if(nombre.equalsIgnoreCase("volver")){
 
+                        System.out.println("Volviendo al menú...");
                     }else {
                         do{
 
@@ -163,12 +164,11 @@ public class Main {
                         Persona.añadirJugador(jugadores.getLast());
                         Log.escribirEnLog("Se ha añadido un nuevo jugador llamado " + nombre);
                     }
-
                 //ELIMINAR JUGADOR
             } else if (eleccion == 3) {
                 System.out.println("¿Cuál es el nombre del jugador que quieres Eliminar? (Solo el nombre y sin espacios)");
                 nombre= Constantes.teclado.next();
-                Persona.eliminarJugador(nombre);
+                Persona.eliminarJugador(nombre, jugadores);
                 Log.escribirEnLog("Se ha eliminado el jugador " + nombre);
             } else if (eleccion != 4 && !error){
 

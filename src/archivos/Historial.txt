@@ -31,3 +31,5 @@ federico 1 javier 1
 federico 0 
 federico 1 
 federico 3 
+salir 1 uwu 0 r 0 
+uwu 1 asasd 0 
