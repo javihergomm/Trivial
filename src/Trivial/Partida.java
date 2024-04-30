@@ -51,7 +51,9 @@ public class Partida {
                     primeros3 = nombre.substring(0, 3);
                 }
                 if (primeros3.equalsIgnoreCase("cpu")) {
-                    System.err.println("el nombre no puede empezar por 'CPU'");
+                    System.err.println("El nombre no puede empezar por 'CPU'");
+                } else if (nombre.contains(" ")){
+                    System.err.println("El nombre no puede contener espacios");
                 } else {
                     for (int j = 0; j < Constantes.lineasRanking.size(); j++) {
                         if (nombre.equalsIgnoreCase(Constantes.lineasRanking.get(j).split(" ")[0])) {
@@ -63,6 +65,7 @@ public class Partida {
                         System.err.println("Ese jugador no esta añadido en el sistema");
                         System.out.println("¿Quieres añadirlo?");
                         añadir = Constantes.teclado.nextLine();
+
                         if (añadir.equalsIgnoreCase("si") || añadir.equalsIgnoreCase("s")) {
                             jugadoresEnPartida.add(new Persona(nombre, 0));
                             Persona.añadirJugador((Persona) jugadoresEnPartida.getLast());

@@ -128,18 +128,23 @@ public class Main {
             } else if (eleccion == 2) {
                 boolean todoOK = true;
                 String primeros3;
+                Constantes.teclado.nextLine();
                     do {
                         primeros3="";
                         todoOK=true;
                         System.out.println("¿Cuál es el nombre del jugador que quieres añadir? (Solo el nombre y sin espacios)");
                         System.out.println("O escribe volver para no añadir ningun jugador");
-                        nombre = Constantes.teclado.next();
+                        nombre = Constantes.teclado.nextLine();
                         if(nombre.length() >= 3){
                             primeros3 = nombre.substring(0, 3);
                         }
                         if (primeros3.equalsIgnoreCase("cpu")) {
                             System.err.println("El nombre no puede empezar por 'CPU'");
                             todoOK = false;
+                        }
+                        if (nombre.contains(" ")){
+                            System.err.println("El nombre no puede tener espacios");
+                            todoOK=false;
                         }
                     }while (!todoOK);
                     if(nombre.equalsIgnoreCase("volver")){

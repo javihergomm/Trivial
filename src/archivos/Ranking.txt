@@ -1,2 +1,2 @@
-javier 6
-rosana 5
+javier 0
+rosana 0
