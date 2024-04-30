@@ -35,7 +35,7 @@ public class Main {
                 error = true;
             }
 
-
+            //INICIAR PARTIDA
             if (eleccion == 1){
                 boolean encontrado = false;
                 Partida p = new Partida();
@@ -46,30 +46,21 @@ public class Main {
                         jugadoresQueJuegan.remove(i);
                     }
                 }
-                for (Jugador jugador : jugadoresQueJuegan) {
-                    for (int j = 0; j < jugadores.size(); j++) {
-                        if (jugador.nombre.equalsIgnoreCase(jugadores.get(j).nombre)) {
-                            jugadores.set(j, (Persona) jugador);
-                            encontrado = true;
-                        }
-                    }
-                    if (!encontrado){
-                        jugadores.add((Persona) jugador);
-                    }
-                }
-                jugadores = Constantes.actualizarRanking(jugadores);
+                jugadores = Constantes.actualizarRanking(jugadores, jugadoresQueJuegan);
                 Constantes.ordenarRanking(jugadores);
 
+                //MOSTRAR RANKING
             } else if (eleccion == 2) {
                 Constantes.ordenarRanking(jugadores);
-                for (Jugador jugadore : jugadores) {
-                    System.out.println(jugadore.nombre + " " +jugadore.puntuacion);
+                for (Persona jugadore : jugadores) {
+                    System.out.println(jugadore.nombre + " " +jugadore.puntosEnElRanking);
                 }
                 Log.escribirEnLog("Se ha mostrado el Ranking");
                 System.out.print("Presiona enter para continuar...");
                 Constantes.teclado.nextLine();
                 Constantes.teclado.nextLine();
 
+                //MOSTRAR HISTORIAL
             } else if (eleccion == 3) {
 
                 try {
@@ -87,6 +78,7 @@ public class Main {
                 Constantes.teclado.nextLine();
                 Constantes.teclado.nextLine();
 
+                //SUBMENU DE JUGADORES
             } else if (eleccion == 4) {
 
                 menuJugadores(jugadores);
@@ -121,7 +113,7 @@ public class Main {
                 error = true;
             }
 
-
+            //VER JUGADORES
             if (eleccion == 1){
                 for (Jugador jugadore : jugadores) {
                     System.out.println(jugadore.nombre);
@@ -130,6 +122,8 @@ public class Main {
                 System.out.print("Presiona enter para continuar...");
                 Constantes.teclado.nextLine();
                 Constantes.teclado.nextLine();
+
+                //AÑADIR JUGADOR
             } else if (eleccion == 2) {
                 boolean todoOK = true;
                 String primeros3;
@@ -170,8 +164,7 @@ public class Main {
                         Log.escribirEnLog("Se ha añadido un nuevo jugador llamado " + nombre);
                     }
 
-
-
+                //ELIMINAR JUGADOR
             } else if (eleccion == 3) {
                 System.out.println("¿Cuál es el nombre del jugador que quieres Eliminar? (Solo el nombre y sin espacios)");
                 nombre= Constantes.teclado.next();

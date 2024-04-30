@@ -73,30 +73,34 @@ public class Constantes {
     }
 
 
-    public static ArrayList<Persona> actualizarRanking(ArrayList<Persona> jugadores) {
-
-        for (int i=0; i < jugadores.size(); i++) {
-            for (String linea : lineasRanking) {
-                String[] partes = linea.split(" ");
-                if (partes[0].equalsIgnoreCase(jugadores.get(i).getNombre())) {
-                    jugadores.get(i).setPuntuacion(jugadores.get(i).getPuntosEnElRanking() + jugadores.get(i).getPuntuacion());
+    public static ArrayList<Persona> actualizarRanking(ArrayList<Persona> jugadores, ArrayList<Jugador> jugadoresQueJuegan) {
+        boolean existe = false;
+        for (int i = 0; i < jugadoresQueJuegan.size(); i++){
+            for (int j = 0; j < jugadores.size(); j++){
+                if (jugadoresQueJuegan.get(i).nombre.equalsIgnoreCase(jugadores.get(j).nombre)){
+                    jugadores.get(j).puntosEnElRanking += jugadoresQueJuegan.get(i).getPuntuacion();
+                    existe= true;
                 }
             }
+            if (!existe){
+                jugadores.add((Persona) jugadoresQueJuegan.get(i));
+                jugadores.getLast().puntosEnElRanking = jugadoresQueJuegan.get(i).puntuacion;
+            }
         }
+
         return jugadores;
 
     }
 
     public static void ordenarRanking(ArrayList<Persona> jugadores){
 
-        jugadores.sort((o1, o2) -> Integer.compare(o2.getPuntuacion(), o1.getPuntuacion()));
+        jugadores.sort((o1, o2) -> Integer.compare(o2.puntosEnElRanking, o1.puntosEnElRanking));
 
         try {
             Files.delete(archivoRanking);
             Files.createFile(archivoRanking);
-            for (Jugador jugadore : jugadores) {
-                System.out.println(jugadore.nombre + jugadore.getPuntuacion());
-                Files.write(archivoRanking, (jugadore.nombre + ' ' + (jugadore.puntuacion) + '\n').getBytes(), StandardOpenOption.APPEND);
+            for (Persona jugadore : jugadores) {
+                Files.write(archivoRanking, (jugadore.nombre + ' ' + (jugadore.puntosEnElRanking) + '\n').getBytes(), StandardOpenOption.APPEND);
             }
         } catch (IOException e) {
             System.err.println("Error al actualizar el Ranking");

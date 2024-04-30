@@ -21,86 +21,10 @@ public class Partida {
         int numPersonas = 0;
         boolean correcto = true;
 
-        System.out.println("¿Cuántos jugadores va a haber?");
-        do{
-            try{
-                numJugadores = Constantes.teclado.nextInt();
-                correcto = true;
-            }catch (Exception e){
-                Constantes.teclado.nextLine();
-                System.err.println("Debes introducir un número");
-                correcto = false;
-            }
-        }while(!correcto);
-        
-        while (numJugadores > 4){
-            System.out.println("Error, el número de jugadores no puede ser superior a 4");
-            System.out.println("¿Cuántos jugadores va a haber?");
-            do{
-                try{
-                    numJugadores = Constantes.teclado.nextInt();
-                    correcto = true;
-                }catch (Exception e){
-                    Constantes.teclado.nextLine();
-                    System.err.println("Debes introducir un número");
-                    correcto = false;
-                }
-            }while(!correcto);
+        numJugadores = pedirNumJugadores(numJugadores, correcto);
+        numPersonas = pedirNumPersonas(numPersonas, numJugadores, correcto);
+        numRondas = pedirNumRondas(numRondas, correcto);
 
-
-        }
-        System.out.println("¿Y cuántas personas?");
-        do{
-            if (numPersonas>numJugadores){
-                System.err.println("No puede haber más personas que jugadores!");
-            }
-            try{
-                numPersonas = Constantes.teclado.nextInt();
-                correcto = true;
-            }catch (Exception e){
-                Constantes.teclado.nextLine();
-                System.err.println("Debes introducir un número");
-                correcto = false;
-            }
-        }while(!correcto || numPersonas>numJugadores);
-
-
-        System.out.println("¿Cuántas rondas vais a querer jugar? (escoge una de las siguientes opciones)");
-        System.out.println("3 (partida rápida)");
-        System.out.println("5 (partida corta)");
-        System.out.println("10 (partida normal)");
-        System.out.println("20 (partida larga)");
-        do{
-            try{
-                numRondas = Constantes.teclado.nextInt();
-                correcto = true;
-            }catch (Exception e){
-                Constantes.teclado.nextLine();
-                System.err.println("Debes introducir un número");
-                correcto = false;
-            }
-        }while(!correcto);
-
-        while (numRondas != 3 && numRondas != 5 && numRondas != 10 && numRondas != 20){
-
-            System.out.println("Error, no has escogido una de las opciones.");
-
-            System.out.println("¿Cuántas rondas vais a querer jugar? (escoge una de las siguientes opciones)");
-            System.out.println("3 (partida rápida)");
-            System.out.println("5 (partida corta)");
-            System.out.println("10 (partida normal)");
-            System.out.println("20 (partida larga)");
-            do{
-                try{
-                    numRondas = Constantes.teclado.nextInt();
-                    correcto = true;
-                }catch (Exception e){
-                    Constantes.teclado.nextLine();
-                    System.err.println("Debes introducir un número");
-                    correcto = false;
-                }
-            }while(!correcto);
-        }
         Constantes.teclado.nextLine();
 
         this.numRondas = numRondas;
@@ -362,7 +286,94 @@ public class Partida {
     }
 
 
+    private static int pedirNumJugadores(int numJugadores, boolean correcto){
+        System.out.println("¿Cuántos jugadores va a haber?");
+        do{
+            try{
+                numJugadores = Constantes.teclado.nextInt();
+                correcto = true;
+            }catch (Exception e){
+                Constantes.teclado.nextLine();
+                System.err.println("Debes introducir un número");
+                correcto = false;
+            }
+        }while(!correcto);
 
+        while (numJugadores > 4){
+            System.out.println("Error, el número de jugadores no puede ser superior a 4");
+            System.out.println("¿Cuántos jugadores va a haber?");
+            do{
+                try{
+                    numJugadores = Constantes.teclado.nextInt();
+                    correcto = true;
+                }catch (Exception e){
+                    Constantes.teclado.nextLine();
+                    System.err.println("Debes introducir un número");
+                    correcto = false;
+                }
+            }while(!correcto);
+
+        }
+        return numJugadores;
+    }
+
+    private static int pedirNumPersonas(int numPersonas, int numJugadores, boolean correcto){
+        System.out.println("¿Y cuántas personas?");
+        do{
+            if (numPersonas>numJugadores){
+                System.err.println("No puede haber más personas que jugadores!");
+            }
+            try{
+                numPersonas = Constantes.teclado.nextInt();
+                correcto = true;
+            }catch (Exception e){
+                Constantes.teclado.nextLine();
+                System.err.println("Debes introducir un número");
+                correcto = false;
+            }
+        }while(!correcto || numPersonas>numJugadores);
+        return numPersonas;
+    }
+
+    private static int pedirNumRondas(int numRondas, boolean correcto){
+        System.out.println("¿Cuántas rondas vais a querer jugar? (escoge una de las siguientes opciones)");
+        System.out.println("3 (partida rápida)");
+        System.out.println("5 (partida corta)");
+        System.out.println("10 (partida normal)");
+        System.out.println("20 (partida larga)");
+        do{
+            try{
+                numRondas = Constantes.teclado.nextInt();
+                correcto = true;
+            }catch (Exception e){
+                Constantes.teclado.nextLine();
+                System.err.println("Debes introducir un número");
+                correcto = false;
+            }
+        }while(!correcto);
+
+        while (numRondas != 3 && numRondas != 5 && numRondas != 10 && numRondas != 20){
+
+            System.out.println("Error, no has escogido una de las opciones.");
+
+            System.out.println("¿Cuántas rondas vais a querer jugar? (escoge una de las siguientes opciones)");
+            System.out.println("3 (partida rápida)");
+            System.out.println("5 (partida corta)");
+            System.out.println("10 (partida normal)");
+            System.out.println("20 (partida larga)");
+            do{
+                try{
+                    numRondas = Constantes.teclado.nextInt();
+                    correcto = true;
+                }catch (Exception e){
+                    Constantes.teclado.nextLine();
+                    System.err.println("Debes introducir un número");
+                    correcto = false;
+                }
+            }while(!correcto);
+        }
+        return numRondas;
+    }
     public int getNumRondas() {
         return numRondas;
     }

@@ -1,7 +1,2 @@
+javier 5
 rosana 1
-javier 0
-amanda 0
-Crespo 0
-Alberto 0
-Daniel 0
-pedro 0

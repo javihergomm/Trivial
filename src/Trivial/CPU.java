@@ -2,9 +2,6 @@ package Trivial;
 
 public class CPU extends Jugador{
 
-    int puntuacion;
-    String nombre;
-
     public CPU(String nombre) {
         super(0, nombre);
     }
