@@ -103,7 +103,7 @@ public class Partida {
 
                 }else if (pregunta==0 && jugadores.get(j) instanceof Persona){
                     System.out.println(ANSI_RED + "Ha salido una pregunta de matemáticas!" + ANSI_RESET);
-                    if (((Persona) jugadores.get(j)).contestarPregunta(preguntaMates())){
+                    if (((Persona) jugadores.get(j)).contestarPregunta(preguntaMates(), 0)){
                         jugadores.get(j).puntuacion += 1;
                     }
 
@@ -115,7 +115,7 @@ public class Partida {
 
                 }else if (pregunta==1 && jugadores.get(j) instanceof Persona){
                     System.out.println(ANSI_BLUE + "Ha salido una pregunta de Letras!" + ANSI_RESET);
-                    if (((Persona) jugadores.get(j)).contestarPregunta(preguntaLetras())){
+                    if (((Persona) jugadores.get(j)).contestarPregunta(preguntaLetras(), 1)){
                         jugadores.get(j).puntuacion += 1;
                     }
 
@@ -127,7 +127,7 @@ public class Partida {
 
                 } else if (pregunta==2 && jugadores.get(j) instanceof Persona) {
                     System.out.println(ANSI_PURPLE + "Ha salido una pregunta de ingles" + ANSI_RESET);
-                    if (((Persona) jugadores.get(j)).contestarPregunta(preguntaIngles())){
+                    if (((Persona) jugadores.get(j)).contestarPregunta(preguntaIngles(), 2)){
                         jugadores.get(j).puntuacion += 1;
                     }
                 }

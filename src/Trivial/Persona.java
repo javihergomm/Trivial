@@ -5,8 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
-import static Trivial.Constantes.ANSI_LIGHTGREEN;
-import static Trivial.Constantes.ANSI_RESET;
+import static Trivial.Constantes.*;
 
 
 public class Persona extends Jugador{
@@ -60,18 +59,53 @@ public class Persona extends Jugador{
             System.err.println("Ese jugador no existe");
         }
     }
-    public boolean contestarPregunta(String respuesta){
+    public boolean contestarPregunta(String respuesta, int tipoPregunta){
         boolean correcto;
         String contestado;
         contestado = Constantes.teclado.nextLine();
-
-        if (contestado.equalsIgnoreCase(respuesta)){
+        if (tipoPregunta==0){
+            boolean numero = false;
+            while(!numero){
+                try{
+                    Integer.parseInt(contestado);
+                    numero = true;
+                }catch (NumberFormatException e){
+                    System.err.println("No has introducido un número");
+                    contestado = teclado.nextLine();
+                }
+            }
+            if (Integer.parseInt(contestado) == Integer.parseInt(respuesta)){
                 System.out.println("Enhorabuena, la respuesta es correcta!!");
                 correcto=true;
-        } else{
+            } else{
                 System.out.println("Mala suerte, a la proxima será. La respuesta correcta era: " + ANSI_LIGHTGREEN + respuesta + ANSI_RESET);
                 correcto=false;
+            }
+        }else if (tipoPregunta == 2){
+            while (!contestado.equalsIgnoreCase("a") && !contestado.equalsIgnoreCase("b") && !contestado.equalsIgnoreCase("c") && !contestado.equalsIgnoreCase("d")){
+
+                System.err.println("debes responder con: a, b, c, d");
+                contestado = teclado.nextLine();
+
+            }
+            if (contestado.equalsIgnoreCase(respuesta)){
+                System.out.println("Enhorabuena, la respuesta es correcta!!");
+                correcto=true;
+            } else{
+                System.out.println("Mala suerte, a la proxima será. La respuesta correcta era: " + ANSI_LIGHTGREEN + respuesta + ANSI_RESET);
+                correcto=false;
+            }
+        }else{
+            if (contestado.equalsIgnoreCase(respuesta)){
+                System.out.println("Enhorabuena, la respuesta es correcta!!");
+                correcto=true;
+            } else{
+                System.out.println("Mala suerte, a la proxima será. La respuesta correcta era: " + ANSI_LIGHTGREEN + respuesta + ANSI_RESET);
+                correcto=false;
+            }
+
         }
+
         return correcto;
 
     }

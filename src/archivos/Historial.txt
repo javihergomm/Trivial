@@ -1,1 +1,3 @@
 javier 0 
+javier 2 CPU0 2 
+javier 1 
