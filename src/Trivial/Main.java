@@ -14,6 +14,14 @@ public class Main {
 
     }
 
+    /**
+     * El método menú del main, con él se podrán acceder a todas las opciones del programa, puede:
+     * - Iniciar una nueva partida
+     * - Mostrar el ranking de jugadores
+     * - Mostrar el historial de partidas
+     * - Acceder al submenu de jugadores
+     * @param jugadores Es un Arraylist que almacena todos los jugadres del archivo ranking.
+     */
     public static void menu (ArrayList<Persona> jugadores){
         int eleccion;
 
@@ -95,6 +103,14 @@ public class Main {
     }
 
 
+    /**
+     *Es un submenú al que se accede introduciendo un 4 en el menú principal, puede:
+     * - ver la lista de jugadores
+     * - añadir un nuevo jugador al sistema
+     * - eliminar un jugador del sistema
+     *
+     * @param jugadores Es un Arraylist que almacena todos los jugadres del archivo ranking.
+     */
     public static void menuJugadores(ArrayList<Persona> jugadores){
         String nombre;
         int eleccion;
