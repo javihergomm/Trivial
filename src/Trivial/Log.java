@@ -17,7 +17,7 @@ public class Log {
      * Escribe en el archivo salida.log y, si el archivo salida.log es de mas antiguo que 1 día
      * crea un archivo nuevo y el anterior lo guarda con la fecha como extensión.
      *
-     * @param texto Es el texto que se escribirá en el archivo salida.log justo despues de la fecha y hora
+     * @param texto (String) Es el texto que se escribirá en el archivo salida.log justo despues de la fecha y hora
      */
     public static void escribirEnLog(String texto) {
 
@@ -92,7 +92,7 @@ public class Log {
 
     /**
      * Comprueba si la fecha del archivo salida.log es la de hoy o no
-     * @param fecha es la última linea del archivo salida.log
+     * @param fecha (String) es la última linea del archivo salida.log
      * @return devuelve un booleano (true: si la fecha actual es mayor a la fecha del archivo salida.log. false: si no)
      */
     private static boolean logAntiguo(String fecha){
@@ -117,7 +117,7 @@ public class Log {
 
     /**
      * Extrae la fecha del ultimo Log
-     * @param fecha es la última linea del archivo salida.log
+     * @param fecha (String) es la última linea del archivo salida.log
      * @return devuelve un String que es la fecha en formato yyyymmdd
      */
     private static String fechaUltimoLog(String fecha){
@@ -136,8 +136,8 @@ public class Log {
     }
 
     /**
-     * escribe en el archivo salida.log el texto
-     * @param texto es el texto de la acción juntada con la fecha
+     * Escribe en el archivo salida.log el texto
+     * @param texto (String) es el texto de la acción juntada con la fecha
      */
     private static void apuntarAccion(String texto){
 

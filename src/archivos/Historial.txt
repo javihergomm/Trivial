@@ -1,3 +1,9 @@
 javier 0 
 javier 2 CPU0 2 
 javier 1 
+
+
+CPU0 3 CPU1 1 
+javier 0 rosana 0 
+javier 0 rosana 0 
+javier 0 

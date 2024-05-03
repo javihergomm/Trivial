@@ -10,7 +10,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Constantes {
-
+    //esto es para añadir colores a los textos.
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
@@ -61,7 +61,10 @@ public class Constantes {
         }
     }
 
-    //Comprueba si el archivo introducido existe, si no es así lo crea.
+    /**
+     * Comprueba si el archivo introducido existe, si no es así lo crea.
+     * @param archivo (Path) es la ruta del archivo que se va a comprobar.
+     */
     public static void comprobarArchivo(Path archivo){
         if (!Files.exists(archivo)){
             try {
@@ -72,7 +75,10 @@ public class Constantes {
         }
     }
 
-    //Pasa el Arraylist archivoRanking a un Arraylist de la clase Persona
+    /**
+     * Pasa el Arraylist archivoRanking a un Arraylist de la clase Persona
+     * @return devuelve el arraylist de clase Persona creado.
+     */
     public static ArrayList<Persona> TodosLosJugadores(){
         ArrayList<Persona> TodosLosJugadores = new ArrayList<>();
         comprobarArchivo(archivoRanking);
@@ -83,6 +89,12 @@ public class Constantes {
     }
 
 
+    /**
+     * Edita el Arraylist que contiene todos los jugadores y cambia las puntuaciones de los que han jugado
+     * @param jugadores (ArrayList<Persona>) Es el arraylist que contiene todos los jugadores
+     * @param jugadoresQueJuegan (ArrayList<Jugador>) Es el arraylist con los jugadores que han jugado (con sus puntuaciones en la partida)
+     * @return Devuelve el arraylist de todos los jugadores pero habiendoles sumado la puntuacion que han obtenido los jugadores que jugaron la partida.
+     */
     public static ArrayList<Persona> actualizarRanking(ArrayList<Persona> jugadores, ArrayList<Jugador> jugadoresQueJuegan) {
         boolean existe = false;
         for (int i = 0; i < jugadoresQueJuegan.size(); i++){
@@ -102,6 +114,10 @@ public class Constantes {
 
     }
 
+    /**
+     * Ordena el archivo Ranking.txt para que los jugadores con mayor puntuacion estén arriba.
+     * @param jugadores (ArrayList<Persona>) es el arraylist con todos los jugadores.
+     */
     public static void ordenarRanking(ArrayList<Persona> jugadores){
 
         jugadores.sort((o1, o2) -> Integer.compare(o2.puntosEnElRanking, o1.puntosEnElRanking));

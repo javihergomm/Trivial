@@ -15,15 +15,17 @@ public class Partida {
     int numJugadores;
     int numPersonas;
 
+    /**
+     * El constructor de la clase partida: fija el numero de jugadores, de humanos y de rondas, a partir de preguntarselo al usuario.
+     */
     public Partida() {
-        int numRondas = 0;
-        int numJugadores = 0;
-        int numPersonas = 0;
-        boolean correcto = true;
+        int numRondas;
+        int numJugadores;
+        int numPersonas;
 
-        numJugadores = pedirNumJugadores(numJugadores, correcto);
-        numPersonas = pedirNumPersonas(numPersonas, numJugadores, correcto);
-        numRondas = pedirNumRondas(numRondas, correcto);
+        numJugadores = pedirNumJugadores();
+        numPersonas = pedirNumPersonas(numJugadores);
+        numRondas = pedirNumRondas();
 
         Constantes.teclado.nextLine();
 
@@ -34,6 +36,12 @@ public class Partida {
         Log.escribirEnLog("Se ha creado una nueva partida con " + numJugadores + " jugadores, " + numPersonas + " personas y " + numRondas + " Rondas");
     }
 
+    /**
+     * Rellena un arraylist con todos los jugadores que participan en la partida ya sean humanos o sean CPU.
+     * @param numJugadores (int) es el numero de jugadores que van a añadirse al arraylist
+     * @param numPersonas (int) es el numero de jugadores humanos que participan en la partida, numJugadores - numPersonas = al numero de bots que van a jugar.
+     * @return devuelve el arraylist de los jugadores.
+     */
     public static ArrayList<Jugador> crearJugadores(int numJugadores, int numPersonas){
 
         ArrayList<Jugador> jugadoresEnPartida = new ArrayList<>();
@@ -89,6 +97,12 @@ public class Partida {
         return jugadoresEnPartida;
     }
 
+    /**
+     * Es donde se maneja toda la partida, donde se hacen las preguntas y se añaden los puntos.
+     * @param p (Partida) Es el objeto Partida con el numero de rondas, de jugadores, y de personas.
+     * @param jugadores (ArrayList<Jugador>) Es el arraylist con los jugadores que van a participar en la partida
+     * @return devuelve un arraylist de los jugadores con los puntos actualizados.
+     */
     public ArrayList<Jugador> jugarPartida(Partida p, ArrayList<Jugador> jugadores){
 
         for (int i = 0; i < p.numRondas; i++){
@@ -135,6 +149,24 @@ public class Partida {
             }
         }
         jugadores.sort((o1, o2) -> Integer.compare(o2.getPuntuacion(), o1.getPuntuacion()));
+        System.out.println("Y el ganador es...");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            System.err.println("Error al esperar");
+        }
+        System.out.println(jugadores.getFirst().nombre + "!!! " + "Enhorabuenaaa!!!");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            System.err.println("Error al esperar");
+        }
+        System.out.println("Así ha quedado la partida: ");
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            System.err.println("Error al esperar");
+        }
         for (int i = 0; i < p.numJugadores; i++){
             System.out.println(jugadores.get(i).nombre + " " + jugadores.get(i).puntuacion);
             try {
@@ -148,15 +180,16 @@ public class Partida {
         }catch (IOException e){
             System.err.println("Error al escribir en el Historial");
         }
+        System.out.println("Pulsa enter para continuar...");
+        teclado.nextLine();
         return jugadores;
     }
 
 
-    //Hace la pregunta sobre matemáticas. Primero genera un número aleatorio entre 4 y 8 que será el número de operaciones,
-    //despues añade un numero entre 2 y 12 y luego el símbolo de la operación, eso el número de veces que haya salido en el primer numero aleatorio
-    //por último con la librería exp4j usando las clases Expression y ExpressionBuilder
-    //paso el string a un double, pido una respuesta y la comparo con el resultado
-    //Si la respuesta es correcta lo cuenta como acierto, y si es incorrecta como fallo.
+    /**
+     * Hace la pregunta sobre matemáticas.
+     * @return devuelve la respuesta correcta.
+     */
     public String preguntaMates(){
         String operacion = "";
         int numero2;
@@ -197,10 +230,10 @@ public class Partida {
 
     }
 
-    //Hace la pregunta de letras. Primero lee entero el diccionario, y lo almacena en un arraylist, despues genera
-    //una linea (palabra del diccionario) aleatoria y la almacena en un String. De esa palabra se sacan todos los
-    //caracteres a un array de chars y se sacan tantos numeros aleatorios del 0 al numero de lertas de la palabra
-    // como letras tenga la palabra/3 en el array de chars se cambian esos caracteres por '*' y se muestra.
+    /**
+     * Hace la pregunta de letras.
+     * @return devuelve la respuesta correcta.
+     */
     public String preguntaLetras(){
 
         String palabra;
@@ -234,9 +267,10 @@ public class Partida {
         return palabra;
     }
 
-    //Hace la pregunta de ingles. Primero almacena todas las lineas del archivo ingles.txt en un arraylist, después
-    //genera un numero aleatorio del 0 al numero de lineas del archivo que sea multiplo de 5 (porque es donde estan
-    // las preguntas) despues con un numero aleatorio del 1 al 4 se coloca la respuesta correcta en la posicion a, b, c o d
+    /**
+     * Hace la pregunta de ingles.
+     * @return devuelve la respuesta correcta.
+     */
     public String preguntaIngles(){
 
         int numeroDeLinea;
@@ -288,9 +322,14 @@ public class Partida {
         return correcto;
     }
 
-
-    private static int pedirNumJugadores(int numJugadores, boolean correcto){
+    /**
+     * Pide el número de jugadores para iniciar la partida.
+     * @return devuelve el número de jugadores
+     */
+    private static int pedirNumJugadores(){
         System.out.println("¿Cuántos jugadores va a haber?");
+        int numJugadores=0;
+        boolean correcto;
         do{
             try{
                 numJugadores = Constantes.teclado.nextInt();
@@ -302,8 +341,8 @@ public class Partida {
             }
         }while(!correcto);
 
-        while (numJugadores > 4){
-            System.out.println("Error, el número de jugadores no puede ser superior a 4");
+        while (numJugadores > 4 || numJugadores<=0){
+            System.err.println("Error, el número de jugadores no puede ser superior a 4 ni inferior a 1");
             System.out.println("¿Cuántos jugadores va a haber?");
             do{
                 try{
@@ -320,8 +359,15 @@ public class Partida {
         return numJugadores;
     }
 
-    private static int pedirNumPersonas(int numPersonas, int numJugadores, boolean correcto){
+    /**
+     * Pide el número de jugadores humanos para iniciar la partida.
+     * @param numJugadores (int) es el numero de jugadores introducido anteriormente, el numero de jugadores humanos no puede ser superior al numero de jugadores
+     * @return devuelve el numero de jugadores humanos.
+     */
+    private static int pedirNumPersonas(int numJugadores){
         System.out.println("¿Y cuántas personas?");
+        int numPersonas=0;
+        boolean correcto;
         do{
             if (numPersonas>numJugadores){
                 System.err.println("No puede haber más personas que jugadores!");
@@ -338,12 +384,18 @@ public class Partida {
         return numPersonas;
     }
 
-    private static int pedirNumRondas(int numRondas, boolean correcto){
+    /**
+     * Pide el numero de rondas para iniciar la partida.
+     * @return devuelve el numero de rondas.
+     */
+    private static int pedirNumRondas(){
         System.out.println("¿Cuántas rondas vais a querer jugar? (escoge una de las siguientes opciones)");
         System.out.println("3 (partida rápida)");
         System.out.println("5 (partida corta)");
         System.out.println("10 (partida normal)");
         System.out.println("20 (partida larga)");
+        int numRondas=0;
+        boolean correcto;
         do{
             try{
                 numRondas = Constantes.teclado.nextInt();
@@ -377,6 +429,7 @@ public class Partida {
         }
         return numRondas;
     }
+
     public int getNumRondas() {
         return numRondas;
     }

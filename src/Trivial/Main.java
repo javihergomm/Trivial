@@ -20,7 +20,7 @@ public class Main {
      * - Mostrar el ranking de jugadores
      * - Mostrar el historial de partidas
      * - Acceder al submenu de jugadores
-     * @param jugadores Es un Arraylist que almacena todos los jugadres del archivo ranking.
+     * @param jugadores (ArrayList<Persona>) Es un Arraylist que almacena todos los jugadres del archivo ranking.
      */
     public static void menu (ArrayList<Persona> jugadores){
         int eleccion;
@@ -109,7 +109,7 @@ public class Main {
      * - añadir un nuevo jugador al sistema
      * - eliminar un jugador del sistema
      *
-     * @param jugadores Es un Arraylist que almacena todos los jugadres del archivo ranking.
+     * @param jugadores (ArrayList<Persona>) Es un Arraylist que almacena todos los jugadres del archivo ranking.
      */
     public static void menuJugadores(ArrayList<Persona> jugadores){
         String nombre;

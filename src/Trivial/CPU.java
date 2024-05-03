@@ -6,6 +6,12 @@ public class CPU extends Jugador{
         super(0, nombre);
     }
 
+    /**
+     * Contesta autoamticamente la pregunta que haya tocado. Si es de mates la acierta siempre, si es de letras la falla siempre y si es de ingles responde al azar
+     * @param tipoPregunta (int) Es el tipo de la pregunta que se le raliza: 0=Mates, 1=letras, 2=Ingles.
+     * @param respuesta (String) Es la respuesta correcta de la pregunta.
+     * @return devuelve true si acierta y false si falla
+     */
     public boolean contestarPregunta(int tipoPregunta, String respuesta){
 
         boolean correcto;
