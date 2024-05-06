@@ -13,6 +13,12 @@ import java.util.ArrayList;
 
 public class Log {
 
+    /**
+     * Escribe en el archivo salida.log y, si el archivo salida.log es de mas antiguo que 1 día
+     * crea un archivo nuevo y el anterior lo guarda con la fecha como extensión.
+     *
+     * @param texto (String) Es el texto que se escribirá en el archivo salida.log justo despues de la fecha y hora
+     */
     public static void escribirEnLog(String texto) {
 
         LocalDate fecha = LocalDate.now();
@@ -49,6 +55,10 @@ public class Log {
         }
     }
 
+    /**
+     * Extrae la última línea del archivo salida.log para su posterior uso.
+     * @return Devuelve un String, es la última línea del archivo salida.log
+     */
     public static String ultimaLinea() {
 
 
@@ -80,6 +90,11 @@ public class Log {
         }
     }
 
+    /**
+     * Comprueba si la fecha del archivo salida.log es la de hoy o no
+     * @param fecha (String) es la última linea del archivo salida.log
+     * @return devuelve un booleano (true: si la fecha actual es mayor a la fecha del archivo salida.log. false: si no)
+     */
     private static boolean logAntiguo(String fecha){
         int dia;
         int mes;
@@ -100,6 +115,11 @@ public class Log {
         }
     }
 
+    /**
+     * Extrae la fecha del ultimo Log
+     * @param fecha (String) es la última linea del archivo salida.log
+     * @return devuelve un String que es la fecha en formato yyyymmdd
+     */
     private static String fechaUltimoLog(String fecha){
         String dia;
         String mes;
@@ -115,6 +135,10 @@ public class Log {
         return todoJunto;
     }
 
+    /**
+     * Escribe en el archivo salida.log el texto
+     * @param texto (String) es el texto de la acción juntada con la fecha
+     */
     private static void apuntarAccion(String texto){
 
         Path archivo = Paths.get("src/archivos/salida.log");
