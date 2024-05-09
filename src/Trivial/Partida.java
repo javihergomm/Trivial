@@ -57,14 +57,17 @@ public class Partida {
                 System.out.println("¿Como se llama el jugador " + (i + 1) + "?");
                 nombre = Constantes.teclado.nextLine();
                 String primeros3 = "";
-                if (nombre.length() >=3){
+                if (nombre.length() >= 3) {
                     primeros3 = nombre.substring(0, 3);
                 }
                 if (primeros3.equalsIgnoreCase("cpu")) {
                     System.err.println("El nombre no puede empezar por 'CPU'");
-                } else if (nombre.contains(" ")){
+                } else if (nombre.contains(" ")) {
                     System.err.println("El nombre no puede contener espacios");
-                } else {
+                } else if (yaExisteElJugador(nombre, jugadoresEnPartida)){
+
+                    System.err.println("Ese jugador ya está en la partida");
+                }else {
                     for (int j = 0; j < Constantes.lineasRanking.size(); j++) {
                         if (nombre.equalsIgnoreCase(Constantes.lineasRanking.get(j).split(" ")[0])) {
                             jugadoresEnPartida.add(new Persona(nombre, 0));
@@ -97,6 +100,17 @@ public class Partida {
 
 
         return jugadoresEnPartida;
+    }
+
+    private static boolean yaExisteElJugador(String nombre, ArrayList<Jugador> jugadoresEnPartida){
+        boolean existe=false;
+        for (Jugador jugador : jugadoresEnPartida) {
+            if (jugador.nombre.equalsIgnoreCase(nombre)) {
+                existe = true;
+            }
+        }
+
+        return existe;
     }
 
     /**
