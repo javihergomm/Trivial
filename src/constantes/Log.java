@@ -1,4 +1,4 @@
-package Trivial;
+package constantes;
 
 import java.io.File;
 import java.io.IOException;

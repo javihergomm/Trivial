@@ -1,10 +1,13 @@
 package Trivial;
 
 
+import constantes.Constantes;
+import constantes.Log;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import static Trivial.Constantes.*;
+import static constantes.Constantes.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -191,7 +194,6 @@ public class Main {
                 System.out.println("¿Cuál es el nombre del jugador que quieres Eliminar? (Solo el nombre y sin espacios)");
                 nombre= Constantes.teclado.next();
                 Persona.eliminarJugador(nombre, jugadores);
-                Log.escribirEnLog("Se ha eliminado el jugador " + nombre);
             } else if (eleccion != 4 && !error){
 
                 System.err.println("Error! No has escogido un número válido");

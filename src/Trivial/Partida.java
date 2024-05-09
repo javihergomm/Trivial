@@ -1,8 +1,10 @@
 package Trivial;
 
+import constantes.Constantes;
+import constantes.Log;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import net.objecthunter.exp4j.Expression;
-import static Trivial.Constantes.*;
+import static constantes.Constantes.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;

@@ -1,4 +1,7 @@
-package Trivial;
+package constantes;
+
+import Trivial.Jugador;
+import Trivial.Persona;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,11 +17,9 @@ public class Constantes {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_BLUE = "\u001B[34m";
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
     public static final String ANSI_LIGHTGREEN = "\u001B[92m";
 
     public static Scanner teclado = new Scanner(System.in);
@@ -99,14 +100,14 @@ public class Constantes {
         boolean existe = false;
         for (int i = 0; i < jugadoresQueJuegan.size(); i++){
             for (int j = 0; j < jugadores.size(); j++){
-                if (jugadoresQueJuegan.get(i).nombre.equalsIgnoreCase(jugadores.get(j).nombre)){
+                if (jugadoresQueJuegan.get(i).getNombre().equalsIgnoreCase(jugadores.get(j).getNombre())){
                     jugadores.get(j).puntosEnElRanking += jugadoresQueJuegan.get(i).getPuntuacion();
                     existe= true;
                 }
             }
             if (!existe){
                 jugadores.add((Persona) jugadoresQueJuegan.get(i));
-                jugadores.getLast().puntosEnElRanking = jugadoresQueJuegan.get(i).puntuacion;
+                jugadores.getLast().puntosEnElRanking = jugadoresQueJuegan.get(i).getPuntuacion();
             }
         }
 
@@ -126,7 +127,7 @@ public class Constantes {
             Files.delete(archivoRanking);
             Files.createFile(archivoRanking);
             for (Persona jugadore : jugadores) {
-                Files.write(archivoRanking, (jugadore.nombre + ' ' + (jugadore.puntosEnElRanking) + '\n').getBytes(), StandardOpenOption.APPEND);
+                Files.write(archivoRanking, (jugadore.getNombre() + ' ' + (jugadore.puntosEnElRanking) + '\n').getBytes(), StandardOpenOption.APPEND);
             }
         } catch (IOException e) {
             System.err.println("Error al actualizar el Ranking");

@@ -1,2 +1,4 @@
 rosana 2
-javier 0
+javier 1
+jajaja 0
+asdasdasd 0

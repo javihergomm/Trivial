@@ -1,5 +1,7 @@
 package Trivial;
-import static Trivial.Constantes.*;
+import constantes.Constantes;
+
+import static constantes.Constantes.*;
 public class CPU extends Jugador{
 
     public CPU(String nombre) {

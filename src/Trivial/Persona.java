@@ -1,16 +1,19 @@
 package Trivial;
 
+import constantes.Constantes;
+import constantes.Log;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
-import static Trivial.Constantes.*;
+import static constantes.Constantes.*;
 
 
 public class Persona extends Jugador{
 
-    int puntosEnElRanking;
+    public int puntosEnElRanking;
 
     public Persona(String nombre, int puntosEnElRanking) {
         super(0, nombre);
@@ -62,7 +65,7 @@ public class Persona extends Jugador{
                     System.err.println("Ha habido un error al escribir en el archivo Ranking.txt");
                 }
             }
-
+            Log.escribirEnLog("Se ha eliminado el jugador " + jugador);
         }else{
             System.err.println("Ese jugador no existe");
         }
