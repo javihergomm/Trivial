@@ -102,6 +102,12 @@ public class Partida {
         return jugadoresEnPartida;
     }
 
+    /**
+     * Comprueba que el nombre introducido no este ya en el arraylist de los jugadores en la partida
+     * @param nombre (String) Es el nombre que se introduce.
+     * @param jugadoresEnPartida (ArrayList<Jugador>) es el arraylist que guarda los jugadores en la partida.
+     * @return devuelve un booleano, true = se repite el nombre | false = no se repite.
+     */
     private static boolean yaExisteElJugador(String nombre, ArrayList<Jugador> jugadoresEnPartida){
         boolean existe=false;
         for (Jugador jugador : jugadoresEnPartida) {
